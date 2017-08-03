@@ -5,4 +5,8 @@
         <members>A</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>ApexDevNet</members>
+        <name>RemoteSiteSetting</name>
+    </types>
 </Package>
