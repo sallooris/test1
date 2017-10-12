@@ -3,6 +3,9 @@
     <version>40.0</version>
     <types>
         <members>A</members>
+        <members>Test</members>
+        <members>Test66</members>
+        <members>test11</members>
         <name>ApexClass</name>
     </types>
     <types>
