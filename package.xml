@@ -4,11 +4,16 @@
     <types>
         <members>A</members>
         <members>MyClass</members>
+        <members>aa</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>DataCloudGeoLocation</members>
         <name>CleanDataService</name>
+    </types>
+    <types>
+        <members>Internal Zone</members>
+        <name>Community</name>
     </types>
     <types>
         <members>ApexDevNet</members>
