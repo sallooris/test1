@@ -3,7 +3,12 @@
     <version>40.0</version>
     <types>
         <members>A</members>
+        <members>MyClass</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DataCloudGeoLocation</members>
+        <name>CleanDataService</name>
     </types>
     <types>
         <members>ApexDevNet</members>
