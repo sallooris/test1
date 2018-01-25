@@ -2,6 +2,7 @@ public class A_XLS {
     
     public Id posId{get;set;}
     public Id DealsId{get;set;}
+    public Id DealsId1{get;set;}
      
 
     Public A_XLS(Apexpages.StandardController controller){
