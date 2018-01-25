@@ -1,0 +1,33 @@
+<apex:page >
+<apex:form >
+<apex:PageBlock Title="PageBlock">
+<apex:pageBlockSection Title="PageBlockSection">
+Hai <br/> Chandu Goud
+</apex:pageBlockSection>
+<apex:pageBlockSection Title="Second PageBlock Section">
+<apex:outPutLabel > Enter Name </apex:outPutLabel>
+<apex:inputText tabindex="2" />
+<apex:outPutLabel > Enter Password </apex:outPutLabel>
+<apex:inputSecret tabIndex="2" />
+<apex:outPutLabel > Enter Address </apex:outPutLabel>
+<apex:inputTextArea cols="10" rows="3" />
+</apex:pageBlockSection>
+<apex:selectCheckBoxes >
+<apex:selectOption ItemLabel="AP" itemValue="AP" />
+<apex:selectOption itemLabel="MP" itemValue="MP"  />
+</apex:selectCheckBoxes>
+<apex:selectRadio >
+<apex:selectOption ItemLabel="Ap" itemValue="AP" />
+<apex:selectOption ItemLabel="MP" itemValue="MP" />
+</apex:selectRadio>
+<apex:selectList size="1" >
+<apex:selectOption itemLabel="Ap" itemValue="Ap" />
+<apex:selectOption itemLabel="Mp" itemValue="MP" />
+</apex:selectList>
+<apex:selectList multiSelect="true">
+<apex:selectOption itemLabel="Ap" itemValue="Ap" />
+<apex:selectOption itemLabel="MP" itemValue="Mp" />
+</apex:selectList>
+</apex:PageBlock>
+</apex:form>
+</apex:page>

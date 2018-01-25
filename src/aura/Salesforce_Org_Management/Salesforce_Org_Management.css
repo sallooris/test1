@@ -1,0 +1,23 @@
+.THIS .salesforce-org-container .slds-container_small{
+    margin:auto;
+    max-width:320px;
+}
+.THIS .salesforce-org-container .dx-header{
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  
+}
+.THIS .salesforce-org-container .slds-form-element{
+    margin-bottom:20px;
+}
+.THIS .salesforce-org-container .slds-form-element label{
+   /* display:none;*/
+}
+.THIS .salesforce-org-container .slds-btn-wrapper{
+	text-align:center;
+}
+.THIS .select.uiInput.uiInputSelect.uiInput--default.uiInput--select{
+    background-image:none;
+}

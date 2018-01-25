@@ -1,0 +1,4 @@
+<apex:page standardController="Travel_Forecast_Form__c" extensions="Travel_Forecast_Approval" recordSetVar="TRRecords" action="{!approveActionFunction}">
+<apex:form >
+    </apex:form>
+</apex:page>

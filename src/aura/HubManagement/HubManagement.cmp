@@ -1,0 +1,38 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    <ltng:require scripts="/resource/jquery,/resource/momentjs,/resource/aljs" afterScriptsLoaded="{!c.scriptsLoaded}" />
+    <aura:attribute name="hubid" type="String" />
+    <aura:attribute name="hubusername" type="String" />
+    <aura:attribute name="hubalias" type="String" />
+    <aura:attribute name="currentComp" type="String" default="ScratchOrg_List"/>
+    <aura:attribute name="ScrOrgList" type="Object[]" default="[]"/>
+    <aura:attribute name="accesskeyList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryDetailsList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryList" type="String[]" default="[]"/> 
+    <aura:attribute name="SfOrgList" type="Object[]" default="[]"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <c:header />
+    
+    <div aura:id="main">
+        <div class="devhub-mg-container">    
+            <div class="slds-tabs--default" data-aljs="tabs">
+                <div class="site-navigation">
+                    <ul class="slds-tabs-list" role="tablist">
+                        <li class="{!v.currentComp=='ScratchOrg_List'?'slds-text-heading--label slds-active':'slds-text-heading--label'}" title="Hub Management" role="presentation"><a class="slds-tabs--default__link" aura:id="tab0" href="javascript:void(0)" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" data-aljs-show="tab-default-1" onclick="{!c.goToUrl}">Hub Management</a></li>
+                        <li class="{!v.currentComp=='Salesforce_Org_Management'?'slds-text-heading--label slds-active':'slds-text-heading--label'}" title="Salesforce Orgs" role="presentation"><a class="slds-tabs--default__link" aura:id="tab1" href="javascript:void(0)" role="tab" tabindex="1" aria-selected="false" aria-controls="tab-default-2" data-aljs-show="tab-default-2" onclick="{!c.goToUrl}">Salesforce Orgs</a></li>
+                        <li class="{!v.currentComp=='VC_Repositories'?'slds-text-heading--label slds-active':'slds-text-heading--label'}" title="VC Repository" role="presentation"><a class="slds-tabs--default__link" aura:id="tab2" href="javascript:void(0)" role="tab" tabindex="2" aria-selected="false" aria-controls="tab-default-3" data-aljs-show="tab-default-3" onclick="{!c.goToUrl}">VC Repository</a></li>
+                        <li class="{!v.currentComp=='EZ_Commit'?'slds-text-heading--label slds-active':'slds-text-heading--label'}" title="EZ Commit" role="presentation"><a class="slds-tabs--default__link" aura:id="tab3" href="javascript:void(0)" role="tab" tabindex="3" aria-selected="true" aria-controls="tab-default-4" data-aljs-show="tab-default-4" onclick="{!c.goToUrl}">EZ Commit</a></li>
+                        <li class="{!v.currentComp=='MetaData_Comp'?'slds-text-heading--label slds-active':'slds-text-heading--label'}" title="Load MetaData" role="presentation"><a class="slds-tabs--default__link" aura:id="tab4" href="javascript:void(0)" role="tab" tabindex="4" aria-selected="false" aria-controls="tab-default-6" data-aljs-show="tab-default-6" onclick="{!c.goToUrl}">Load MetaData</a></li>
+                    </ul>
+                </div>
+                <div class="main-body">
+                    <c:loading />
+                    <div aura:id="tab-data" class="slds-tabs--default__content" role="tabpanel">
+                                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

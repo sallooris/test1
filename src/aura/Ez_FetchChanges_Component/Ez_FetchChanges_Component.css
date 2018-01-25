@@ -1,0 +1,12 @@
+.THIS .slds-form-element__row .slds-form-element{
+    width: 15%;
+    height: calc(1.875rem + (1px * 0.1));
+}
+.THIS .slds-button-add-acckey{
+    margin-left: 5px;
+    font-size: 18px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 1.5rem;
+    margin-top: 3px; 
+}

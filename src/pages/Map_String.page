@@ -1,0 +1,8 @@
+<apex:page controller="MAP_String">
+<apex:form >
+    <apex:selectList value="{!myCity}" size="1">
+        <apex:selectOptions value="{!city}" />
+        <apex:actionSupport event="onchange" action="{!show}" rerender="one" />
+    </apex:selectList>
+    </apex:form>
+</apex:page>

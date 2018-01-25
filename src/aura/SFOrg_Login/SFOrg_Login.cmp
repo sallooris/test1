@@ -1,0 +1,85 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <div aura:id="main">
+        <div class="reg-container">   
+            <div class="slds-container_small  slds-box" >
+                <h1 class="dx-header">Register Salesforce Org</h1>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">*</abbr> Salesforce Org Name</label>
+            <div class="slds-form-element__control">
+                <input type="text" required="" id="text-input-id-1" class="slds-input" placeholder="Placeholder Text" />
+            </div>
+        </div>
+        
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="select-01">
+                <abbr class="slds-required" title="required">*</abbr> Select Org Type</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select class="slds-select" id="select-01" required="">
+                        <option>Dev</option>
+                        <option>Integration</option>
+                        <option>QA</option>
+                        <option>Production</option>
+                    </select>
+                </div>
+            </div>
+        </div>    
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="select-02">Environment</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select class="slds-select" id="select-02">
+                        <option>Production or Development Edition</option>
+                        <option>SandBox</option>
+                        <option>Pre-Release</option>
+                        <option>Custom URL</option>
+                    </select>
+                </div>
+            </div>
+        </div>   
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="input-id-01">Salesforce Org URL</label>
+            <div class="slds-form-element__control">
+                <input type="text" id="input-id-02" class="slds-input" placeholder="Placeholder Text" />
+            </div>            
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="select-03">
+                <abbr class="slds-required" title="required">*</abbr> Access Type</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select class="slds-select" id="select-03" required="">
+                        <option>OAuth</option>
+                        <option>Standard</option>
+                    </select>
+                </div>
+            </div>
+        </div> 
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-id-2">
+                <abbr class="slds-required" title="required">*</abbr> User Name</label>
+            <div class="slds-form-element__control">
+                <input type="text" required="" id="text-input-id-2" class="slds-input" placeholder="Placeholder Text"/>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-id-3">
+                <abbr class="slds-required" title="required">*</abbr>Password</label>
+            <div class="slds-form-element__control">
+                <input type="password" required="" id="text-input-id-3" class="slds-input" placeholder="Placeholder Text"/>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-id-4">
+                <abbr class="slds-required" title="required">*</abbr>Security Token</label>
+            <div class="slds-form-element__control">
+                <input type="text" required="" id="text-input-id-4" class="slds-input" placeholder="Placeholder Text"/>
+            </div>
+        </div>
+        <button class="slds-button slds-button_brand">Validate and Save</button>
+        <button class="slds-button slds-button_brand">Cancel</button>
+    </div>
+        </div>
+    </div>
+</aura:component>

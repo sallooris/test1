@@ -1,0 +1,70 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    
+    <ltng:require scripts="/resource/jquery"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="isModalVisible" type="boolean" default="false"/>
+    <aura:attribute name="DevHubList" type="Object[]" default="[]"/>
+    
+    <c:loading />
+    <header class="uiBlock oneAnchorHeader" data-aura-rendered-by="195:0" data-aura-class="uiBlock oneAnchorHeader">
+        <div class="bLeft" data-aura-rendered-by="197:0">
+            <div class="small forceEntityIcon" style="background-color: #FC758E" data-aura-class="forceEntityIcon"><span data-aura-rendered-by="190:0" class="uiImage" data-aura-class="uiImage"><img data-aura-rendered-by="188:0" src="https://dx-war-dev-ed--c.ap5.content.force.com/servlet/servlet.ImageServer?id=0157F000000sr2p&amp;oid=00D7F000001b4Ht&amp;lastMod=1502291115000" class="icon " alt="" title=""/></span></div>
+            
+        </div>
+        <div class="bRight" data-aura-rendered-by="200:0">
+            <div class="slds-btn-container"><button class="slds-button slds-button_neutral" onclick="{!c.showModal}">Add DevHub</button></div>
+            <!-- workaround for W-2413659, remove once that bug is fixed --><!--render facet: 180:0-->
+        </div>
+        <div class="bBody" data-aura-rendered-by="202:0">
+        </div>
+    </header>
+    <div aura:id="main">
+        <div class="devhub-container">   
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Alias Name" >Alias Name</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="User Name">User Name</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Client Id">Client Id</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Instance Url">Instance Url</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title=""></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.DevHubList}" var="hub">
+                        <tr>
+                            <th scope="row" data-label="Alias Name" >
+                                <div class="slds-truncate" title="Alias Name"><a href="javascript:void(0)" data-recId="{!hub.hubId}" data-username="{!hub.hubUserName}" data-alias="{!hub.hubName}" onclick="{!c.goToScratchOrgList}">{!hub.hubName}</a></div>
+                            </th>
+                            <td data-label="User Name">
+                                <div class="slds-truncate" title="User Name">{!hub.hubUserName}</div>
+                            </td>
+                            <td data-label="Client Id">
+                                <div class="slds-truncate" title="Client Id"> {!hub.orgname}</div>
+                            </td>
+                            <td data-label="Instance Url">
+                                <div class="slds-truncate" title="Instance Url">{!hub.instanceurl}</div>
+                            </td>
+                            <td>
+                            	<div class="slds-truncate" title="id"><a href="javascript:void(0)" onclick="{!c.unRegister}" id="{!'hid-'+hub.hubId}">Un Register</a></div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+        <aura:if isTrue="{!v.isModalVisible}">
+            <c:Create_DevHub_Org flag="{!v.isModalVisible}"/>     
+        </aura:if>   
+    </div>        
+</aura:component>

@@ -1,0 +1,103 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    <ltng:require scripts="/resource/jquery"/>
+    <aura:attribute name="accesskeyList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryList" type="String[]" default="[]"/>
+    <aura:attribute name="flag" type="boolean" default="false"/>
+    <aura:attribute name="accflag" type="boolean" default="false"/>
+    <aura:attribute name="isRepositoryURL" type="boolean" default="false"/>
+    <aura:attribute name="isCheckBox" type="boolean" default="false"/>
+    <aura:attribute name="isbranch" type="boolean" default="false"/>
+    <aura:attribute name="isSpinnerVisible" type="boolean" default="false"/>
+    <aura:attribute name="errorCount" type="integer" default="0"/>
+    <aura:attribute name="isSaveDisabled" type="boolean" default="true"/>
+    <aura:attribute name="dataObj" type="Map" default="{'type':'Select Repository','url':'','accesskey':'Select Accesskey','DisplayName':'','isChange':false}"/>
+    
+    <div class="slds-container_small  slds-box">
+        <aura:if isTrue="{!v.isSpinnerVisible}">
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                    <!--<img src="/resource/loading"/>-->
+                </div>
+            </div>
+        </aura:if>
+        <header class="slds-modal__header">
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Register Repository</h2>
+        </header>
+        <div class="slds-form-element slds-p-top_medium">
+            <label class="slds-form-element__label" for="select-01">Version Control System</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <ui:inputSelect class="slds-select slds-select-repository" aura:id="repository" value="{!v.dataObj.type}" change="{!c.CheckVersionControlSystem}">
+                        <ui:inputSelectOption text="Select Repository"/>
+                        <aura:iteration items="{!v.repositoryList}" var="repoLabel">
+                            <ui:inputSelectOption text="{!repoLabel}"/>
+                        </aura:iteration>
+                    </ui:inputSelect>
+                </div>
+            </div>
+            
+            <aura:if isTrue="{!v.isCheckBox}">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <span class="slds-checkbox">
+                            <input type="checkbox" name="options" aura:id="checkbox"  checked="{!v.dataObj.isChange}" id="checkbox-1" />
+                            <label class="slds-checkbox__label" for="checkbox-1">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">AWS CodeCommit Repository</span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </aura:if>
+            
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="input-id-02">
+                    <abbr class="slds-required" title="required">*</abbr>Display Name</label>
+                <div class="slds-form-element__control">
+                    <ui:inputText aura:id="DisplayName" class="slds-input" placeholder="DisplayName"  disabled="disabled" value="{!v.dataObj.DisplayName}"/>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.isRepositoryURL}">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="RepositoryURL">
+                        <abbr class="slds-required" title="required">*</abbr>Repository <aura:if isTrue="{!v.dataObj.type=='SVN'}">Root<aura:set attribute="else">URL</aura:set></aura:if></label>
+                    <div class="slds-form-element__control">
+                        <ui:inputURL aura:id="url" class="slds-input" placeholder="RepositoryURL" value="{!v.dataObj.url}"/>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.isbranch}">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="branch">Branch</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText aura:id="branch" class="slds-input" placeholder="branch"  disabled="disabled" value="Master"/>
+                    </div>
+                </div>
+            </aura:if>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="select-03">Access Key</label>
+                <div class="slds-form-element__control">
+                    <div class="slds-select_container slds-select_container-acckey">
+                        <ui:inputSelect class="slds-select" aura:id="accesskey" value="{!v.dataObj.accesskey}">
+                            <ui:inputSelectOption text="Select Accesskey"/>
+                            <aura:iteration items="{!v.accesskeyList}" var="accesskey">
+                                <ui:inputSelectOption text="{!accesskey.accesskey}"/>
+                            </aura:iteration>
+                        </ui:inputSelect>
+                    </div>
+                    <button class="slds-button slds-button_brand slds-button-add-acckey" onclick="{!c.showAccReg}">+</button>
+                </div>
+            </div> 
+            
+        </div>
+        
+        <footer class="slds-p-around_medium slds-text-align_center">
+            <button class="slds-button slds-button_brand" onclick="{!c.checkValidation}">TestConnection</button>
+            <button class="slds-button slds-button_brand" onclick="{!c.save}" disabled="{!v.isSaveDisabled}">Save</button>
+            <button class="slds-button slds-button_brand" onclick="{!c.cancel}">Cancel</button>
+        </footer>
+    </div>      
+</aura:component>

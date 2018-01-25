@@ -1,0 +1,66 @@
+<aura:component controller="DXLoginActivity" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require scripts="/resource/jquery" />
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>-->
+    <style>
+        .forceEntityIcon:nth-child(1) {
+        width: 60% !important;
+        height: 2rem !important;
+        background-color:transparent !important;
+        }
+        h2.truncate:nth-child(1){
+        text-align:right;
+        display:none;
+        }
+        header.oneAnchorHeader:nth-child(1) {
+        height: 84px;
+        }
+        one-app-nav-bar-item-root .slds-context-bar__label-action .slds-truncate{
+        font-weight: bold;
+        font-size: 14px;
+        font-style: italic;
+        font-family: sans-serif;
+        display: inline-block;
+        width: 121px;
+        text-align: center;
+        color: rgb(0, 157, 212);
+        }
+        one-app-nav-bar-item-root a.slds-context-bar__label-action:before {
+            background-color: #0070D2 !important;
+            margin-bottom: -3px;
+        }
+
+        one-app-nav-bar-item-root a.slds-context-bar__label-action:before, one-app-nav-bar-item-root a.slds-context-bar__label-action:after {
+            content: '' !important;
+            height: 3px !important;
+            display: block !important;
+            background: #0070D2 !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -1px !important;
+            right: -1px !important;
+        }
+         one-app-nav-bar-item-root.slds-context-bar__item {
+            outline: 0;
+            border-radius: 0;
+            background-color: rgb(247, 249, 251);
+            border-bottom: 3px solid rgb(0, 161, 223);
+            border-bottom-color: rgb(247, 249, 251);
+            margin-bottom: -3px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <c:loading />
+    <c:header />
+    <div aura:id="main">
+        <div aura:id="container" class="home-container">
+            <div class="slds-form slds-form_stacked">
+                <h1 class="dx-header">Welcome to AutoRABIT DX</h1>
+                <button class="slds-button slds-button_brand slds-button_brand-lg" onclick="{!c.gotoURL}">Register Hub</button>        
+                <div class="slds-box slds-help-text">
+                    <p>This is a regular-sized box.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

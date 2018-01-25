@@ -1,0 +1,28 @@
+<aura:component controller="DXLoginActivity" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >   
+    <c:loading />
+    <c:header />
+    <div aura:id="main">   
+        <div class="reg-container">   
+            <div class="slds-container_small  slds-box" >
+                <h1 class="dx-header">Registration</h1>
+                <div class="slds-form slds-m-top_large"  > 
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="username">User Name</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputEmail aura:id="username" class="slds-input" placeholder="UserName"/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="Alias">Alias Name</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText aura:id="alias" class="slds-input" placeholder="Alias Name" />
+                        </div>
+                    </div>
+                    <div class="slds-text-align_center slds-m-top_large ">
+                        <button class="slds-button slds-button_brand" onclick="{!c.checkValidation}">Login</button>
+                    </div>
+                </div>
+            </div>  
+        </div>   
+    </div>
+</aura:component>

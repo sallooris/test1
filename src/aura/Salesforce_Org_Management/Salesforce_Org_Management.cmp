@@ -1,0 +1,57 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    <aura:attribute name="isNew" type="boolean" default="false"/>
+    <aura:attribute name="hubInfo" type="Map" />
+    <aura:attribute name="SfOrgList" type="Object[]" default="[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="cmpEvent" event="c:flagHandler" action="{!c.doInit}"/>
+    <div id="sfMgContainer">
+        <div class="slds-text-align_right slds-p-vertical_medium"><button class="slds-button slds-button_brand" onclick="{!c.showModal}">Register Org</button></div>
+        <div class="sfOrgs-table-container">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="environment">Environment</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="instanceurl">Instanceurl</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="auth type">Auth Type</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Type">Type</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.SfOrgList}" var="sfOrg">
+                        <tr>
+                            <td data-label="{!sfOrg.name}">
+                                <div class="slds-truncate" title="{!sfOrg.name}">{!sfOrg.name}</div>
+                            </td>
+                            <td data-label="{!sfOrg.env}">
+                                <div class="slds-truncate" title="{!sfOrg.env}">{!sfOrg.env}</div>
+                            </td>
+                            <td data-label="{!sfOrg.instanceurl}">
+                                <div class="slds-truncate" title="{!sfOrg.instanceurl}">{!sfOrg.instanceurl}</div>
+                            </td>
+                            <td data-label="{!sfOrg.authenticationtype}">
+                                <div class="slds-truncate" title="{!sfOrg.authenticationtype}">{!sfOrg.authenticationtype}</div>
+                            </td>
+                            <td data-label="{!sfOrg.type}">
+                                <div class="slds-truncate" title="{!sfOrg.type}">{!sfOrg.type}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>            
+        </div>
+        <aura:if isTrue="{!v.isNew}">
+            <c:Create_Salesforce_Org isNew="{!v.isNew}" hubInfo="{!v.hubInfo}"/>
+        </aura:if>
+    </div>
+</aura:component>

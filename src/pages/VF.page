@@ -1,0 +1,52 @@
+<apex:page standardController="Customer__c" tabStyle="Customer__c">
+<apex:form >
+<apex:pageMessages />
+<apex:sectionHeader title="New Customer detailes" subtitle="Customer Edit" />
+
+<apex:pageBlock title="Customer Edit" mode="edit">
+           <apex:pageBlockButtons >
+    <apex:commandButton id="saveBtn" value="Save" action="{!save}" />
+    <apex:commandButton id="cancelBtn" value="Cancel" action="{!cancel}" />
+    </apex:pageBlockButtons>
+    
+     <apex:pageBlockSection columns="2" showHeader="true" title="Information">
+        
+       <apex:inputField value="{!Customer__c.Phone__c   }" required="true" />
+       
+        </apex:pageBlockSection>
+        
+        <apex:PageblockSection columns="1" title="Cost"  >  
+<apex:pageblockSectionItem >    
+    <apex:outputLabel value="Cost " />
+     <apex:outputPanel styleClass="requiredInput" layout="block">
+     <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+         <apex:actionRegion >
+          <apex:inputField label="Price Type" value="{!Customer__c.cost__c}" >
+            <apex:actionSupport event="onchange" reRender="ajaxrequest" />
+          </apex:inputField>
+         </apex:actionRegion>
+     </apex:outputPanel>
+</apex:pageblockSectionItem>  
+</apex:PageblockSection>
+
+   <apex:outputPanel id="ajaxrequest">  
+    <apex:pageBlockSection columns="1" rendered="{!Customer__c.cost__c =='FEE'}" >
+                 <apex:inputField value="{!Customer__c.fee__c}"  required="{!(if(Customer__c.cost__c =="FEE" ,true,false))}" />          
+    </apex:pageBlockSection>   
+     <apex:pageBlockSection columns="1"  rendered="{!Customer__c.cost__c =='IN KIND FUEL'}" >   
+               <apex:inputField value="{!Customer__c.Volume_Day_percentile__c}"  required="{!(if(Customer__c.cost__c =="KIND OF FUEL" ,true,false))}" />          
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection columns="1"  rendered="{!Customer__c.cost__c =='FEE & IN KIND FUEL'}" >   
+               <apex:inputField value="{!Customer__c.Volume_Day_percentile__c}"  required="{!(if(Customer__c.cost__c =="KIND OF FUEL & FEE" ,true,false))}" />    
+               <apex:inputField value="{!Customer__c.fee__c}"  required="{!(if(Customer__c.cost__c =="KIND OF FUEL & FEE" ,true,false))}" />        
+      </apex:pageBlockSection>
+    </apex:outputPanel>
+
+
+        </apex:pageBlock>
+        </apex:form>
+
+
+<apex:relatedList list="NotesAndAttachments"/>
+</apex:page>

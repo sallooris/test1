@@ -1,0 +1,102 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <div class="slds-form-element ">
+  <label class="slds-form-element__label" for="closedate">{!v.label}</label>
+  <div class="slds-form-element__control">
+    <div class="slds-input-has-icon slds-input-has-icon--right">
+        <c:svg svgPath="/resource/slds/assets/icons/action-sprite/svg/symbols.svg#event" class="slds-input__icon slds-icon-text-default icon--large" />
+      <ui:inputDate aura:id="dateInput" class="slds-input" value="{!v.value}" format="{!v.formatSpecifier}" displayDatePicker="false" updateOn="keyup" focus="{!c.handleInputFocus}" />
+    </div>
+  </div>
+
+    <div aura:id="grid" class="slds-datepicker slds-dropdown slds-dropdown--left slds-hide" onmouseleave="{!c.handleGridMouseLeave}" onmouseenter="{!c.handleGridMouseEnter}">
+   <div class="slds-datepicker__filter slds-grid">
+     <div class="slds-datepicker__filter--month slds-grid slds-grid--align-spread slds-grow">
+       <div class="slds-align-middle">
+         <a onclick="{!c.goToPreviousMonth}" href="javascript:void(0);" class="slds-button slds-button--icon-container">
+            <c:svg svgPath="/resource/slds/assets/icons/action-sprite/svg/symbols.svg#left" class="slds-button__icon slds-button__icon--small slds-m-top--small" />
+         </a>
+       </div>
+       <h2 id="month" class="slds-align-middle" aria-live="assertive" aria-atomic="true">{!v.monthName}</h2>
+       <div class="slds-align-middle">
+         <a onclick="{!c.goToNextMonth}" href="javascript:void(0);" class="slds-button slds-button--icon-container">
+           <c:svg svgPath="/resource/slds/assets/icons/action-sprite/svg/symbols.svg#right" class="slds-button__icon slds-button__icon--small slds-m-top--small" />
+         </a>
+       </div>
+     </div>
+     <div class="slds-shrink-none">
+       <ui:inputSelect aura:id="yearSelect" class="slds-select spear-select" label="pick a year" labelClass="slds-assistive-text" required="false" change="{!c.handleYearChange}" />
+     </div>
+   </div>
+   <table aura:id="maintable" class="datepicker__month" role="grid" aria-labelledby="month">
+     <thead>
+       <tr id="weekdays">
+         <aura:iteration items="{!v._namesOfWeekdays}" var="day">
+           <th scope="col" class="dayOfWeek">
+             <abbr title="{!day.shortName}">{!day.shortName}</abbr>
+           </th>
+         </aura:iteration>
+       </tr>
+     </thead>
+     <tbody>
+       <tr aura:id="week1">
+         <c:DateCell aura:id="0" />
+         <c:DateCell aura:id="1" />
+         <c:DateCell aura:id="2" />
+         <c:DateCell aura:id="3" />
+         <c:DateCell aura:id="4" />
+         <c:DateCell aura:id="5" />
+         <c:DateCell aura:id="6" />
+       </tr>
+       <tr aura:id="week2">
+         <c:DateCell aura:id="7" />
+         <c:DateCell aura:id="8" />
+         <c:DateCell aura:id="9" />
+         <c:DateCell aura:id="10" />
+         <c:DateCell aura:id="11" />
+         <c:DateCell aura:id="12" />
+         <c:DateCell aura:id="13" />
+       </tr>
+       <tr aura:id="week3">
+         <c:DateCell aura:id="14" />
+         <c:DateCell aura:id="15" />
+         <c:DateCell aura:id="16" />
+         <c:DateCell aura:id="17" />
+         <c:DateCell aura:id="18" />
+         <c:DateCell aura:id="19" />
+         <c:DateCell aura:id="20" />
+       </tr>
+       <tr aura:id="week4">
+         <c:DateCell aura:id="21" />
+         <c:DateCell aura:id="22" />
+         <c:DateCell aura:id="23" />
+         <c:DateCell aura:id="24" />
+         <c:DateCell aura:id="25" />
+         <c:DateCell aura:id="26" />
+         <c:DateCell aura:id="27" />
+       </tr>
+       <tr aura:id="week5">
+         <c:DateCell aura:id="28" />
+         <c:DateCell aura:id="29" />
+         <c:DateCell aura:id="30" />
+         <c:DateCell aura:id="31" />
+         <c:DateCell aura:id="32" />
+         <c:DateCell aura:id="33" />
+         <c:DateCell aura:id="34" />
+       </tr>
+       <tr aura:id="week6">
+         <c:DateCell aura:id="35" />
+         <c:DateCell aura:id="36" />
+         <c:DateCell aura:id="37" />
+         <c:DateCell aura:id="38" />
+         <c:DateCell aura:id="39" />
+         <c:DateCell aura:id="40" />
+         <c:DateCell aura:id="41" />
+       </tr>
+       <tr>
+         <td colspan="7" role="gridcell"><a onclick="{!c.goToToday}" href="javascript:void(0);" class="slds-show--inline-block slds-p-bottom--x-small">Today</a></td>
+       </tr>
+     </tbody>
+   </table>
+ </div>
+	</div>
+</aura:component>

@@ -1,0 +1,22 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	 <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer slds-table--fixed-layout">
+    <thead>
+      <tr class="slds-text-heading--label">
+        <th scope="col"><div class="slds-truncate" title="Active Scratch Org ID">Active Scratch Org ID</div></th>
+        <th scope="col"><div class="slds-truncate" title="Scratch Org ID">Scratch Org ID</div></th>
+      </tr>
+         <tr class="slds-text-heading--label">
+        <th scope="col"><div class="slds-truncate" title="Org Name">Org Name</div></th>
+        <th scope="col"><div class="slds-truncate" title="Description">Description</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Use the Apex model and controller to fetch server side data -->
+        <tr>
+          <th scope="row"><div class="slds-truncate" title="Active Scratch Org ID">2ASf4000000PBQyGAO</div></th>
+          <td><div class="slds-truncate" title="Scratch Org ID">00DJ0000003Q4Jc</div></td>
+         
+        </tr>
+         </tbody>
+    </table>
+</aura:component>

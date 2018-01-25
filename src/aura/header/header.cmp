@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <header class="uiBlock oneAnchorHeader" data-aura-rendered-by="195:0" data-aura-class="uiBlock oneAnchorHeader">
+        <div class="bLeft" data-aura-rendered-by="197:0">
+            <div class="small forceEntityIcon" style="background-color: #FC758E" data-aura-rendered-by="187:0" data-aura-class="forceEntityIcon"><span data-aura-rendered-by="190:0" class="uiImage" data-aura-class="uiImage"><img data-aura-rendered-by="188:0" src="https://dx-war-dev-ed--c.ap5.content.force.com/servlet/servlet.ImageServer?id=0157F000000sr2p&amp;oid=00D7F000001b4Ht&amp;lastMod=1502291115000" class="icon " alt="" title=""/></span></div>
+        </div>
+        <div class="bRight" data-aura-rendered-by="200:0">
+            <!-- workaround for W-2413659, remove once that bug is fixed --><!--render facet: 180:0-->
+        </div>
+        <div class="bBody" data-aura-rendered-by="202:0">
+            <h2 class="truncate" data-aura-rendered-by="192:0">DX Home</h2>
+        </div>
+    </header>
+</aura:component>

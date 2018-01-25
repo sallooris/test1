@@ -1,0 +1,24 @@
+.THIS .reg-container{
+    padding-top:20px;
+}
+.THIS .reg-container .slds-container_small{
+    margin:auto;
+    max-width:320px;
+    padding-bottom:50px;
+}
+.THIS .reg-container .slds-form>.slds-form-element{
+    margin-bottom:25px;
+}
+.THIS .reg-container .dx-header{
+    font-size: 1.5rem;
+    text-align: center;
+}
+.THIS .reg-container .slds-input{
+    /*line-height: 3rem;*/
+}
+.THIS .reg-container .slds-button.slds-button_brand{
+    display: block;
+    margin:auto;
+    width: 150px;
+    height: 35px;
+}

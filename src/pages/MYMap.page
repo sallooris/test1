@@ -1,0 +1,17 @@
+<apex:page controller="MyMap">
+    <apex:form >
+    <apex:pageBlock title="MyMap">
+     
+      
+         <apex:commandButton action="{!show}" value="show"/>
+        <apex:pageBlockSection title="MYMAP" >
+         <apex:outputLabel >{!myResult}</apex:outputLabel> 
+         
+             <apex:commandButton action="{!Display}" value="show"/>
+        <apex:pageBlockSection title="MYMAP" >
+         <apex:outputLabel >{!myResult}</apex:outputLabel>
+        </apex:pageBlockSection>
+    </apex:pageBlockSection>
+     </apex:pageBlock>
+    </apex:form>
+</apex:page>

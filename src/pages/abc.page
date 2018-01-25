@@ -1,0 +1,21 @@
+<apex:page Controller="testPageExt" >
+<apex:form >
+<apex:stylesheet value="/sCSS/25.0/sprites/1342034628000/Theme3/default/gc/versioning.css" />
+<apex:stylesheet value="/sCSS/25.0/sprites/1342034628000/Theme3/default/gc/extended.css" />
+
+    <apex:pageBlock title="Supplier List" helpTitle="supplier" helpUrl="/apex/testPage" >
+        <apex:pageBlockSection showHeader="true" title="List of All Supplier" columns="2" >
+            <apex:pageBlockTable value="{!supllierList }" var="s" id="supplier">
+                <apex:column headerValue="Supplier Name" >
+                   <apex:commandLink action="{!quoteaction}" value="{!s.name}" reRender="quote">
+                    <apex:param name="sParam" value="{!s.id}" assignTo="{!supplierValue}"/>
+                    </apex:commandLink>
+                </apex:column>     
+            </apex:pageBlockTable>
+            <apex:pageBlockTable var="r" value="{!quoteList}" id="quote">
+                <apex:column headerValue="Quote Name" value="{!r.name}" />
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

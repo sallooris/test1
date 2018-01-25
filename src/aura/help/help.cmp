@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="desc" type="String" default="Help Text"/>
+    <div class="main">
+        <div class="slds-form-element">
+            <div class="slds-form-element__icon slds-align-middle">
+                <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="help" title="Help">
+                    <c:svg svgPath="/resource/slds/assets/icons/utility-sprite/svg/symbols.svg#info" class="slds-button__icon"/>
+                    <span class="slds-assistive-text">Help</span>
+                </button>
+            </div>
+        </div>
+        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="help" style="position: absolute; top: 0px; left: 15px;">
+            <div class="slds-popover__body">{!v.desc}</div>
+        </div>
+    </div>
+</aura:component>

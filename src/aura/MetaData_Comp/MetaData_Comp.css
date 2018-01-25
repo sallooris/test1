@@ -1,0 +1,38 @@
+.THIS .metadata-container .slds-container_small{
+    margin:auto;
+    max-width:320px;
+}
+.THIS .metadata-container .dx-header{
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.THIS .metadata-container .slds-form-element{
+    margin-bottom:20px;
+}
+.THIS .metadata-container .slds-form-element label{
+    /*display:none;*/
+}
+.THIS .metadata-container .slds-btn-wrapper{
+	text-align:center;
+}
+.THIS.slds-container_large{
+    margin:auto;
+}
+
+.THIS.slds-report-container .slds-box{
+    display:flex;
+    margin-bottom:10px;
+}
+.THIS.slds-report-container .slds-box .slds-dl_inline{
+    flex:1
+}
+
+.THIS.slds-report-container .slds-tabs_scoped__content{
+    overflow:auto;
+}
+
+.THIS.slds-report-container .slds-tabs_scoped__content #tab-scoped-2 td .slds-truncate{
+    font-size:0.85em;
+}

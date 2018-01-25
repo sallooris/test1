@@ -1,0 +1,715 @@
+<apex:page controller="FDF.FieldDependency_ctrl" readOnly="true" showChat="false"
+    docType="html-5.0" standardstylesheets="false">
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />
+    <apex:stylesheet value="{!URLFOR($Resource.FDF__CustomizedBootstrap, 'bootstrap-bs-namespace-master/css/bootstrap.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.FDF__angular_busy,'angular-busy-master/dist/angular-busy.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.FDF__ngActivityIndicatorCss)}" />
+    <!-- Javascript -->
+    <apex:includeScript value="{!URLFOR($Resource.FDF__jquery11)}" />
+    <apex:includeScript value="{!URLFOR($Resource.FDF__angular)}" />
+    <apex:includeScript value="{!URLFOR($Resource.FDF__ngActivityIndicator)}" />
+    <apex:includeScript value="{!URLFOR($Resource.FDF__CustomizedBootstrap, 'bootstrap-bs-namespace-master/js/bootstrap.min.js')}" />
+
+    <!-- EXCEL JS-->
+     <script src="https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.js" type="text/javascript"></script>
+    <!-- Chart JS -->
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
+
+    <c:FDFHeader /> 
+    <apex:pageMessages />
+<!--script>
+    $(window).load(function(){
+        if($('#childSelect').html() == '<option value="?" selected="selected"></option>'){
+            //$('#childSelect').html($('#childSelect').html().replace('<option value="?" selected="selected"></option>','<option selected="selected">None</option>')); 
+            $('#childSelect').prepend('<option selected="selected">None</option>');//prepend
+            /*console.log(1);
+            $("#childSelect option[value='?']").each(function() {
+                $(this).remove();
+            });*/
+        }
+    });
+</script-->
+<script>
+    
+</script>
+   
+    <style>
+.ai-white-spin {
+    border-color: rgba(17, 19, 239, 0.5) rgba(45, 47, 197, 0.5) #fff #fff;
+    border-top-color: rgba(17, 19, 239, 0.498039);
+    border-right-color: rgba(45, 47, 197, 0.498039);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+}
+
+.requiredLoaderBG {
+    background-color: rgb(71, 71, 71);
+    opacity: 0.1;
+    filter: alpha(opacity = 70);
+    /*background-image: url(/img/loading.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 100;*/
+}
+
+.hearderClass {
+    border: 1px solid #ccc;
+    background: #f2f3f3;
+    /* border-width: 0 0 1px 1px; */ /* border-color: #e0e3e5; */
+    color: #000;
+    font-size: .9em;
+    font-weight: bold;
+    padding: 5px 2px 4px 5px;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+ul li, ol li {
+  margin-left: 0.5em !important;
+  padding-left: 0;
+}
+</style>
+    <style>
+::selection {
+    background-color: #aa4f80;
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: #aa4f80;
+    color: #fff;
+}
+
+::selection {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.clearfix {
+    display: block;
+}
+
+.clearfix:after {
+    content: '.';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.box {
+    display: inline-block;
+    vertical-align: middle;
+    /*  float: left;
+        width: 200px;
+        height: 200px;*/
+}
+
+.box .name {
+    color: #fff;
+    font-size: 20px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+/*.box .ai-circled {
+            margin: 75px auto;
+        }*/
+.box .ai-dotted {
+    margin: 85px auto 0;
+}
+
+.box .ai-spinner {
+    margin: 46px auto 0;
+}
+.bs .panel {
+    margin-bottom: 0 !important;
+}
+    .bs th {
+    white-space: normal;
+}
+.bs .well {
+    min-height: 20px;
+    padding: 6px !important;
+    margin-bottom: 5px !important;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.bs .navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 5px !important;
+    /*border: 1px solid transparent;*/
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.bs .alert {
+    padding: 5px !important;
+    margin-bottom: 0px !important;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.bs .panel-body {
+    padding: 10px !important;
+}
+.bs .panel-heading {
+    padding: 6px 6px !important;
+}
+</style>
+    <div class="container1 bs" ng-app="fieldFinder">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="padding: 0px 0px;">
+           <img src="{!URLFOR($Resource.AppLogo)}"  width="130" height="50"/>
+          </a>
+        </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         </div>
+        <!-- Right Side -->
+          <ul class="nav navbar-nav navbar-right" style="margin-top: 0px;">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="padding-top:0px;">
+          <img src="{!URLFOR($Resource.CopanyLogo)}" width="120" height="50" /><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li> <a href="https://appexchange.salesforce.com/servlet/servlet.FileDownload?file=00P3000000QxAtNEAV" target="_blank">Quickstart Guide</a></li>
+            <li><a href="mailto:support@awsquality.com">Request Support</a></li>
+            <li>  <a href="https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5ekWEAR" target="_blank">Post a Review for this App</a></li>
+            <li class="divider"></li>
+            <li> <a href="http://www.awsquality.com" target="_blank">Visit AswQuality.com</a></li>
+            <li> <a href="http://www.awsquality.com/contact-us/" target="_blank">Contact Us</a></li>
+            <li><a onclick="alert('Field Dependency Finder\nVersion 1.x\n\nDeveloped exclusively for the AppExchange\n\nCopyright 2014{!IF(YEAR(TODAY())==2014,'','-'&TEXT(YEAR(TODAY())))} AwsQuality Technologies');">
+             About</a></li>
+          </ul>
+        </li>
+      </ul>      
+
+      </div>
+    </nav>
+    
+    <div class="container-fluid" ng-controller="resultset">
+    <div class="row well">
+    
+    
+ 
+        <apex:outputPanel id="inputbodyId" styleclass="panel panel-primary" layout="block">
+            <div class="panel-heading">
+            <h3 class="panel-title">Search | Filter &amp; Export</h3>
+            </div>
+            <table width="100%">
+                <tr>
+                    <td width="70%">
+                    <div class="panel-body">
+                    <div class="row">
+                    <div class="col-md-6" style="padding-right:0px !important;">
+                    <div class="form-group"><label><b>Select Object</b></label> <select
+                        id="mySelect" class="form-control" ng-Model="objectname"
+                        ng-change="fetchFields();loaddefault();"
+                        ng-options="object.label for object in objects track by object.name"></select>
+                    </div>
+                    </div>
+                    <div class="col-md-6" >
+                    <div class="form-group"><label><b>Search By Field</b></label> 
+                    <select 
+                        id="childSelect" class="form-control"
+                        ng-change="onChangeField(this.value);" ng-model="fieldname"
+                        ng-options="field.label for field in fields track by field.name"
+                        style="min-width: 12%;">
+                    </select>
+                    </div>
+                    </div>
+                    </div>
+                    <section class="row">
+                    <div class="form-group">
+                    <div class="col-md-6 ">
+                    <label><b>Select Components</b></label>
+                  </div>
+                   <div class="checkbox-inline" style="padding-left: 15px !important;">
+                    <div class="col-md-6 form-control">
+                        <label class="checkbox-inline"><input
+                        type="checkbox" ng-model="VF" ng-change="charL1();"/>Visualforce Pages</label> <label
+                        class="checkbox-inline"><input type="checkbox"
+                        ng-model="TGR" ng-change="charL1();"/>Triggers</label> <label class="checkbox-inline"><input
+                        type="checkbox" ng-model="COM" ng-change="charL1();"/>Components</label> <label
+                        class="checkbox-inline"><input type="checkbox"
+                        ng-model="APEX" ng-required="true" ng-change="charL1();"/>Apex Classes</label>
+                        </div>
+                    </div>&nbsp;&nbsp;
+                   
+                  
+                    </div>
+                    
+                    </section> 
+                   <section>
+                        <div class="btn-group" role="group">
+                        <button ng-click="reset();" class="btn btn-primary loadfield">Reset</button>
+                    </div>
+                    &nbsp;
+                    <div class="btn-group" role="group">
+                        <button ng-click="exportData($event)" class="btn btn-primary">Export To Excel</button>    
+                    </div>
+                   </section> 
+         
+            </div>
+            </td>
+                    <td width="30%">
+                        <div style="border: 0px solid transparent;" id="loadIframe">
+                            <apex:outputPanel >
+                                <div style="position: absolute;padding-top: 87px;font-size: 15px;padding-left: 30px;" id="noredId"> No records found. </div>
+                            </apex:outputPanel>
+                            <iframe src="/apex/Resultstatistics?a=0&t=0&p=0&c=0" height="200" width="100%" style="border: 0px solid transparent;"/>
+                        </div> 
+                    </td>
+                    <td width="15px">
+                    &nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </apex:outputPanel>
+          <apex:form > 
+        <apex:actionstatus startStyleClass="requiredLoaderBG" id="ajaxStatus" />
+        <apex:actionFunction action="{!onChangeField}" name="onChangeBox" rerender="pbtFields" status="ajaxStatus" oncomplete="chartL();"/>
+</apex:form> 
+    
+    </div>
+    <!-- END FORM --> <!-- Start Results -->
+    <div class="row well" id="result"><apex:outputPanel id="resultId"
+        styleclass="panel panel-primary" layout="block">
+        <div class="panel-heading">
+        <h3 class="panel-title">Searched | Filtered Result</h3>
+        </div>
+        <div class="panel-body">
+        <div class="alert alert-success" role="alert" ng-hide="allFields.length">
+        <h4><label class="label label-info myInfo"
+            ng-hide="allFields.length">No Custom Field to display</label> <!--label
+            ng-show="fieldname.name != null">Field Name :
+        {{fieldname.name}} </label> <label
+            ng-show="fieldname.name == '' && allFields.length != 0"> ALL
+        Fields </label-->
+        <div class="box">
+        <div ng-activity-indicator="CircledWhite"></div>
+        </div>
+        </h4>
+        </div>
+
+        <div class="panel panel-primary" ng-show="allFields.length">
+        <div ng-repeat="fields in allFields">
+        <div class="panel panel-success" ng-show="APEX">
+        <div class="panel-heading">
+        <div style="color:#000;padding-bottom:15px">
+            <strong style="float:left">Apex Classes <span class="badge apexClassCount">{{fields.lstApex.length}}</span></strong>
+            <strong style="float:right">{{fields.fiedlName}} | {{fields.fiedlApiName}}</strong>
+        </div>
+      
+        </div>
+        <div class="alert alert-info" role="alert"
+            ng-hide="{{fields.lstApex.length}}">No records found.</div>
+        <table class="table" ng-show="{{fields.lstApex.length}}" style="width:100%">
+            <tr>
+                <th>Name</th>
+                <th>Namespace Prefix</th>
+                <th>Api Version</th>
+                <th>Status</th>
+                <th>Length Without Comments</th>
+                <th>Created By</th>
+                <th>Created Date</th>
+                <th>Last Modified By</th>
+                <th>Last Modified Date</th>
+            </tr>
+            <tr ng-repeat="apexClass in fields.lstApex">
+                <td><a href="/{{apexClass.Id}}" target="_blank">{{apexClass.Name}}</a></td>
+                <td>{{apexClass.NamespacePrefix}}</td>
+                <td>{{apexClass.ApiVersion}}</td>
+                <td>{{apexClass.Status}}</td>
+                <td>{{apexClass.LengthWithoutComments}}</td>
+                <td><a href="/{{apexClass.CreatedById}}" target="_blank">{{apexClass.CreatedBy.Name}}</a></td>
+                <td>{{apexClass.CreatedDate | date:'MM/dd/yyyy h:mma'}}</td>
+                <td><a href="/{{apexClass.LastModifiedById}}" target="_blank">{{apexClass.LastModifiedBy.Name}}</a></td>
+                <td>{{apexClass.LastModifiedDate | date:'MM/dd/yyyy h:mma'}}
+                </td>
+            </tr>
+        </table>
+        </div>
+
+        <div class="panel panel-success" ng-show="COM">
+        <div class="panel-heading">
+        <div style="color:#000;padding-bottom:15px">
+            <strong style="float:left">Components <span class="badge componentClassCount">{{fields.lstComponent.length}}</span></strong>
+            <strong style="float:right">{{fields.fiedlName}} | {{fields.fiedlApiName}}</strong>
+        </div>
+        <!--h5 class="panel-title">Components <span class="badge componentClassCount">{{fields.lstComponent.length}}</span>
+        <p class="text-right"><b>{{fields.fiedlName}} |
+        {{fields.fiedlApiName}}</b></p>
+        </h5-->
+        </div>
+        <div class="alert alert-info" role="alert"
+            ng-hide="{{fields.lstComponent.length}}">No records found.</div>
+        <table class="table" ng-show="{{fields.lstComponent.length}}" style="width:100%">
+            <tr>
+                <th>Master Label</th>
+                <th>Name</th>
+                <th>Namespace Prefix</th>
+                <th>Description</th>
+                <th>createdBy</th>
+                <th>created Date</th>
+                <th>Last ModifiedBy</th>
+                <th>Las tModifiedDate</th>
+            </tr>
+            <tr ng-repeat="com in fields.lstComponent">
+                <td><a href="/{{com.Id}}" target="_blank">{{com.MasterLabel}}</a></td>
+                <td>{{com.Name}}</td>
+                <td>{{com.NamespacePrefix}}</td>
+                <td>{{com.Description}}</td>
+                <td><a href="/{{com.CreatedById}}" target="_blank">{{com.CreatedBy.Name}}</a></td>
+                <td>{{com.CreatedDate | date:'MM/dd/yyyy h:mma'}}</td>
+                <td><a href="/{{com.LastModifiedById}}" target="_blank">{{com.LastModifiedBy.Name}}</a></td>
+                <td>{{com.LastModifiedDate | date:'MM/dd/yyyy h:mma'}}</td>
+            </tr>
+        </table>
+        </div>
+
+        <div class="panel panel-success" ng-show="VF">
+        <div class="panel-heading">
+        <div style="color:#000;padding-bottom:15px">
+            <strong style="float:left">Visualforce Pages<span class="badge pageClassCount">{{fields.lstPage.length}}</span></strong>
+            <strong style="float:right">{{fields.fiedlName}} | {{fields.fiedlApiName}}</strong>
+        </div>
+        <!--h5 class="panel-title">VF Pages <span class="badge">{{fields.lstPage.length}}</span>
+        <p class="text-right"><b>{{fields.fiedlName}} |
+        {{fields.fiedlApiName}}</b></p>
+        </h5-->
+        </div>
+        <div class="alert alert-info" role="alert"
+            ng-hide="{{fields.lstPage.length}}">No records found.</div>
+        <table class="table" ng-show="{{fields.lstPage.length}}" style="width:100%">
+            <tr>
+                <th>Master Label</th>
+                <th>Name</th>
+                <th>Namespace Prefix</th>
+                <th>Description</th>
+                <th>createdBy</th>
+                <th>created Date</th>
+                <th>Last ModifiedBy</th>
+                <th>Last ModifiedDate</th>
+            </tr>
+            <tr ng-repeat="pg in fields.lstPage">
+                <td><a href="/{{pg.Id}}" target="_blank">{{pg.MasterLabel}}</a></td>
+                <td>{{pg.Name}}</td>
+                <td>{{pg.NamespacePrefix}}</td>
+                <td>{{pg.Description}}</td>
+                <td><a href="/{{pg.CreatedById}}" target="_blank">{{pg.CreatedBy.Name}}</a></td>
+                <td>{{pg.CreatedDate | date:'MM/dd/yyyy h:mma'}}</td>
+                <td><a href="/{{pg.LastModifiedById}}" target="_blank">{{pg.LastModifiedBy.Name}}</a></td>
+                <td>{{pg.LastModifiedDate | date:'MM/dd/yyyy h:mma'}}</td>
+            </tr>
+        </table>
+        </div>
+
+        <div class="panel panel-success" ng-show="TGR">
+        <div class="panel-heading">
+        <div style="color:#000;padding-bottom:15px">
+            <strong style="float:left">Triggers <span class="badge triggerClassCount">{{fields.lstTrigger.length}}</span></strong>
+            <strong style="float:right">{{fields.fiedlName}} | {{fields.fiedlApiName}}</strong>
+        </div>
+        <!--h5 class="panel-title">Triggers <span class="badge">{{fields.lstTrigger.length}}</span>
+        <p class="text-right"><b>{{fields.fiedlName}} |
+        {{fields.fiedlApiName}}</b></p>
+        </h5-->
+        </div>
+        <div class="alert alert-info" role="alert"
+            ng-hide="{{fields.lstTrigger.length}}">No records found.</div>
+        <table class="table" ng-show="{{fields.lstTrigger.length}}" style="width:100%">
+            <tr>
+                <th>Name</th>
+                <th>Namespace Prefix</th>
+                <th>TableEnumOrId</th>
+                <th>ApiVersion</th>
+                <th>Status</th>
+                <th>Length Without Comments</th>
+                <th>createdBy</th>
+                <th>created Date</th>
+                <th>Last ModifiedBy</th>
+                <th>Last ModifiedDate</th>
+            </tr>
+            <tr ng-repeat="tgr in fields.lstTrigger">
+                <td><a href="/{{tgr.Id}}" target="_blank">{{tgr.Name}}</a></td>
+                <td>{{tgr.NamespacePrefix}}</td>
+                <td>{{tgr.TableEnumOrId}}</td>
+                <td>{{tgr.ApiVersion}}</td>
+                <td>{{tgr.Status}}</td>
+                <td>{{tgr.LengthWithoutComments}}</td>
+                <td><a href="/{{tgr.CreatedById}}" target="_blank">{{tgr.CreatedBy.Name}}</a></td>
+                <td>{{tgr.CreatedDate | date:'MM/dd/yyyy h:mma'}}</td>
+                <td><a href="/{{tgr.LastModifiedById}}" target="_blank">{{tgr.LastModifiedBy.Name}}</a></td>
+                <td>{{tgr.LastModifiedDate | date:'MM/dd/yyyy h:mma'}}</td>
+            </tr>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
+    </apex:outputPanel><!-- END Result --></div>
+    </div>
+</div>
+<script>
+     var apexClassCount = 0;
+     var triggerClassCount = 0;
+     var pageClassCount = 0;
+     var componentClassCount = 0;
+    /*$(document).ready(function(){
+        chartLoadoChange();
+     });*/
+     function chartLoadoChange(){  
+         apexClassCount = 0;
+         triggerClassCount = 0;
+         pageClassCount = 0;
+         componentClassCount = 0;      
+         $('.apexClassCount').each(function() {
+            if(!$($('.apexClassCount').parent().parent().parent().parent()).hasClass('ng-hide')){
+                apexClassCount += parseInt($(this).text());
+            }
+         });
+         $('.triggerClassCount').each(function() {
+             if(!$($('.triggerClassCount').parent().parent().parent().parent()).hasClass('ng-hide')){ 
+                 triggerClassCount += parseInt($(this).text());
+             }
+         });
+         $('.pageClassCount').each(function() {
+             if(!$($('.pageClassCount').parent().parent().parent().parent()).hasClass('ng-hide')){
+                 pageClassCount += parseInt($(this).text());
+             }
+         });
+         $('.componentClassCount').each(function() {
+             if(!$($('.componentClassCount').parent().parent().parent().parent()).hasClass('ng-hide')){
+                componentClassCount += parseInt($(this).text());
+             }
+         });
+         //console.log(apexClassCount);
+         //console.log(triggerClassCount);
+         //console.log(pageClassCount);
+         //console.log(componentClassCount);
+     }
+     
+</script>
+ <script>
+    var app = angular.module("fieldFinder",["ngActivityIndicator"]);
+  // $activityIndicator.startAnimating();
+    app.controller("resultset", ["$scope", "$log","$activityIndicator","$timeout",
+       function($scope, $log, $activityIndicator, $timeout) {
+        $scope.$log = $log;
+           // $scope.$activityIndicator = $activityIndicator;
+    /* Select Options */
+     $scope.objects = {!Objects3};
+     $scope.objectname = $scope.objects[0];
+     $scope.APEX = true;
+     $scope.allFields = [];
+     $scope.STD = false;
+     $scope.CUSTOM = false;
+     $scope.objType = 'all';
+  
+           // $activityIndicator.startAnimating();
+           
+     $scope.onChangeField = function() {
+          var temp = $(".myInfo").text();
+          $(".myInfo").text("Searching Field...");
+         $activityIndicator.startAnimating();
+         //$log.log($activityIndicator.isAnimating());
+            $scope.allFields = [];
+            var selObj = $("#mySelect").val();
+            var field = $("#childSelect").val();           
+            if( selObj == ''){return false;}
+            Visualforce.remoting.Manager.invokeAction(
+             '{!$RemoteAction.FieldDependency_ctrl.getAllFieldDependency2}', 
+             selObj,
+             field,
+             function(result, event) {
+                 $timeout(function () {
+                      $activityIndicator.stopAnimating();
+                      $scope.allFields = result;
+                      $scope.$apply();
+                      $(".myInfo").text( temp );
+                      charL();
+                 }, 1000);
+             }); 
+         //$activityIndicator.stopAnimating();
+         
+          //$log.log($activityIndicator.isAnimating());
+          //charL();
+       };
+     
+      $scope.reset = function(){
+         $scope.allFields = [];
+         getRemoteobjects();
+         loadFields();
+      };
+     
+      $scope.fields = [];
+      $scope.fieldname = [];
+           
+      $scope.fetchFields = function( ){
+        $scope.fieldname = [];        
+        var temp = $(".myInfo").text();
+        $(".myInfo").text("Loading All Fields...");
+        $activityIndicator.startAnimating();
+        $scope.fields = [];
+        var selObj = $("#mySelect").val();        
+         //$("#childSelect").html('<option selected="selected">None</option>');
+        Visualforce.remoting.Manager.invokeAction(
+         '{!$RemoteAction.FieldDependency_ctrl.getCustomFields}', 
+         selObj,
+         function(result, event) {
+                 $timeout(function () {
+                      $activityIndicator.stopAnimating();
+                       $scope.fields = result;
+                       //$log.log(result);
+                       //$log.log('result');
+                       $scope.$apply();
+                       $scope.fieldname = $scope.fields[0];
+                       $(".myInfo").text( temp );
+                       charL();
+                 }, 1000);                 
+      });
+      
+     $scope.onchangeaction();
+     };
+      
+      $scope.loaddefault = function(){
+        var selObj = $("#mySelect").val();
+        $scope.allFields = [];
+        if( selObj == ''){return false;}
+         Visualforce.remoting.Manager.invokeAction(
+         '{!$RemoteAction.FieldDependency_ctrl.initFields}', 
+         selObj,
+         function(result, event) {
+           $scope.allFields = result;
+          $scope.drawChart(); 
+           $scope.$apply();
+         });
+      };
+       
+       
+       $scope.filterObj = function(){
+            if($scope.objType == "std"){
+               $scope.fields = [];
+               $scope.fieldname = [];
+               $scope.allFields = [];
+               $scope.objects = {!StandredObjects};
+               $scope.objectname = $scope.objects[0]; 
+            } else if($scope.objType == "cust"){
+               $scope.fields = [];
+               $scope.fieldname = [];
+               $scope.allFields = [];
+               $scope.objects = {!CustomObjects};
+               $scope.objectname = $scope.objects[0]; 
+            } else if( $scope.objType == "all"){
+               $scope.fields = [];
+               $scope.fieldname = [];
+               $scope.allFields = [];
+               $scope.objects = {!Objects3};
+               $scope.objectname = $scope.objects[0]; 
+            }
+        }; 
+        
+         /*Excel*/
+   $scope.exportData = function(ev) {
+           //$log.info('click');
+        var blob = new Blob([document.getElementById('result').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "AQ-"+$("#mySelect").val()+"-{!TODAY()}.xls");
+        ev.preventDefault();
+    }; 
+  
+  
+    $scope.onchangeaction = function(){
+        /*angular.element(document).ready(function () {
+            console.log('Hello World'+$scope.fields);
+            chartLoadoChange();
+        });*/
+        //charL();
+        
+          
+    //$log.info('Added iframe');
+    };
+    
+     window.charL = function(){
+        /*$('#loadIframe').addClass('requiredLoaderBG');
+        setTimeout(function(){ chartLoadoChange();frameLoad(); }, 3000);
+        $('#loadIframe').removeClass('requiredLoaderBG');*/
+        chartLoadoChange();frameLoad();
+    }
+    
+    $scope.charL1 = function(){
+        $timeout(function () {
+            charL();
+        },1000);
+    };
+    
+    function frameLoad(){
+        $("#loadIframe").children("iframe").remove();
+            //$log.info('Remove iframe');
+            if(apexClassCount == 0 && triggerClassCount == 0 && pageClassCount == 0 && componentClassCount == 0){
+                $('#noredId').show();
+            }else{
+                $('#noredId').hide();
+            }
+         $('<iframe />', {
+                 src: '{!$Page.FDF__ResultStatistics}?a='+apexClassCount +'&t='+triggerClassCount+'&p='+pageClassCount +'&c='+componentClassCount ,
+            Id:'loadIframe1',
+            frameborder: 'false',
+              height: '200px',
+               width: '100%',
+              title: 'Stat',
+              style:'border: 0px solid transparent;width: 100%;height:200px'
+            }).appendTo('#loadIframe');
+            var iframe = document.getElementById('loadIframe1');
+            iframe.src = iframe.src;
+    }
+    
+  
+   /* google.setOnLoadCallback(drawChart); */
+      $scope.drawChart = function() {
+        //$log.info('######'+$scope.allFields.length);
+        /* $log.info('######'+$scope.allFields.lstTrigger.length);
+            var data = google.visualization.arrayToDataTable([
+              ['Triggers', $scope.allFields.lstTrigger.length],
+              ['Apex Classes', $scope.allFields.lstApex.length ],
+              ['Custom Components', $scope.allFields.lstComponent.length],
+              ['VF',  $scope.allFields.lstPage.length],
+              
+            ]);
+            var options = {
+              title: 'STAT'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options); */
+      }
+  
+  
+   }]);
+    
+</script>
+</apex:page>

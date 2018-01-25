@@ -1,0 +1,19 @@
+.THIS.slds-container_medium,.THIS.slds-container_large {
+    margin:auto;
+}
+
+.THIS.slds-container_large .slds-box {
+    padding: 0.5rem;
+}
+
+.THIS.slds-container_large .metadata-sub-members{
+    position: relative;
+    top: -10px;
+    left: 30px;
+}
+.THIS.slds-container_large .metadata-list{
+    column-count:3;
+}
+.THIS input[type='checkbox']{
+    display:inline-block;
+}

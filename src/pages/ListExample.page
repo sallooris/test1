@@ -1,0 +1,14 @@
+<apex:page controller="ListExample" >
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!result}" var="a">
+                <apex:column value="{!a.name}"/>
+                <apex:column value="{!a.age}"/>
+                
+            </apex:pageBlockTable>
+            <apex:pageBlockTable value="{!Stu}" var="b">
+                <apex:column value="{!b}"/>
+                       </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,36 @@
+<apex:page Standardcontroller="A__c" extensions="Trail" sidebar="False" docType="html-5.0">
+    <apex:form >
+        <apex:pageMessages />
+        
+        
+        
+        
+        <apex:pageBlock title="AutoRabit" mode="edit" id="PB">
+            
+            
+            <B>
+                Please take a few Minutes to fill out this Survey on your Salesforce development environment.</B>
+            <br/>
+            &nbsp;
+            <apex:pageBlockSection columns="2" title="1.My Salesforce Role(s) is"> 
+                
+                
+                <apex:pageblockSectionItem >    
+                    <apex:outputLabel value="Administrator" />
+                    <apex:inputField value="{!trail.Email__c }"/>
+                </apex:pageblockSectionItem> 
+                
+                <apex:pageblockSectionItem >    
+                    <apex:outputLabel value="QA/Tester" />
+                    <apex:inputField value="{!trail.Hello__c }"/>
+                </apex:pageblockSectionItem> 
+                
+               
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <div align="center" draggable="false" >
+            <apex:commandButton action="{!TrailHead}" value="Save"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>
+        </div>
+    </apex:form>
+</apex:page>

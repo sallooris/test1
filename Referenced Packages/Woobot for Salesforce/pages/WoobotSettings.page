@@ -1,0 +1,94 @@
+<apex:page controller="woobot.WoobotSettingsController" tabStyle="Woobot__tab" >
+    <!-- Copyright (c) 2017 Woobot Inc -->
+
+        <!-- New style VF page, Lightning -->
+        <apex:includeLightning />
+        <apex:slds />
+        <apex:form id="theform">
+
+
+            <div class="slds-scope" >
+                <div class="slds-page-header">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <div class="slds-media slds-no-space slds-grow">
+                              <div class="slds-media__figure">
+                                <img height="64" width="64" src="{!$Resource.woobot_icon_64_64}"/>
+                              </div>
+                              <div class="slds-media__body">
+                                <p class="slds-text-title--caps slds-line-height--reset">Settings</p>
+                                <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="Woobot for Salesforce">Woobot for Salesforce</h1>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-p-horizontal--large">
+                    <div class="slds-container--small">
+                        <div class="slds-col slds-m-bottom--medium slds-m-top--medium">
+                          <p class="slds-text-title  slds-m-bottom--xx-small" title="Woobot API Key">Woobot API Key (Need a key?  <a target="_blank" href="https://woobot.io/free-trial/">Sign-up here</a>)</p>
+                          <p class="slds-text-body--regular"> 
+                              <div class="slds-form-element__control">
+                                  <input type="text" id="inp-woobotkey" class="slds-input"
+                                   placeholder="WOOBOT API KEY" maxlength="50" length="50"
+                                   style="width: 375px" value="{!settings.woobotkey__c}" onchange="fieldChanged()"/>
+                                  <button id="inp-savebutton" class="slds-button slds-button--brand" disabled="true" onclick="dosave()">Save</button>
+                              </div>
+                          </p>
+                        </div>
+                    </div>
+                    <div class="slds-notify_container">
+                      <apex:repeat value="{!InfoMessages}" var="message">
+                          <div class="slds-notify slds-notify--alert slds-theme--success slds-theme--alert-texture" role="alert">
+                            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close">
+                              X
+                              <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <span class="slds-assistive-text">Success</span>
+                            <h2>
+                                {!message.Summary}
+                            </h2>
+                          </div>
+                      </apex:repeat>
+                      <apex:repeat value="{!ErrorMessages}" var="message">
+                          <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+                            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close">
+                              X
+                              <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <span class="slds-assistive-text">Success</span>
+                            <h2>
+                                {!message.Summary}
+                            </h2>
+                          </div>
+                      </apex:repeat>
+                    </div>                    
+                 </div> <!-- container -->
+            </div> <!-- slds-scope -->
+            <apex:actionFunction name="saveform" action="{!save}" rerender="theform">
+                <apex:param name="firstParam" assignTo="{!settings.woobotkey__c}" value=""/>
+            </apex:actionFunction>
+            <script>
+                document.getElementById("inp-woobotkey")
+                .addEventListener("keyup", function(event) {
+                    fieldChanged()
+                    event.preventDefault();
+                    if (event.keyCode == 13) {
+                        document.getElementById("inp-savebutton").click();
+                    }
+                });
+                function fieldChanged() {
+                    var btn = document.getElementById('inp-savebutton');
+                    btn.className = "slds-button slds-button--brand";
+                    btn.disabled = false;
+                }
+                function dosave() {
+                    var btn = document.getElementById('inp-savebutton');
+                    btn.disabled = true;
+                    var key = document.getElementById('inp-woobotkey').value;
+
+                    saveform(key);
+                }
+            </script>
+        </apex:form>
+</apex:page>

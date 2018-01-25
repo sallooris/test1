@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity" >
+    <aura:attribute name="MetdataList" type="Object[]" default="[]"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit" />
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" for="Metadata Type">Metadata Type</label>
+        <div class="slds-form-element__control">
+            <div class="slds-select_container">
+                <select class="slds-select" id="Metadata Type" onblur="{!c.selectDeloyment}">
+                    <option>Select Type</option>
+                    <aura:iteration items="{!v.MetdataList}" var="meta">
+                        <option data-rec-id="{!meta.id}" value="{!meta.name}">{!meta.name}</option>
+                    </aura:iteration>
+                </select>
+            </div>
+        </div>
+    </div> 
+    
+</aura:component>

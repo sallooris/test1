@@ -1,0 +1,5 @@
+({
+    afterRender:function(){
+        this.superAfterRender();
+    }
+})

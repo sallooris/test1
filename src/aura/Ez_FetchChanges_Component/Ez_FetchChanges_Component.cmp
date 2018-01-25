@@ -1,0 +1,53 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="isLabel" type="boolean" default="false"/>
+    <aura:attribute name="isModal" type="boolean" default="false"/>
+    <div aura:id="main">
+        <div class="slds-p-top_small slds-size_1-of-1 slds-text-align--right slds-border_top">
+            <button class="slds-button slds-button_brand" disabled="" press="{!c.gotoURL}" >Additional MetaData</button>
+        </div>
+        <div class="slds-box">
+            <div class="slds-grid slds-wrap slds-grid_pull-padded">
+                <div class="slds-p-horizontal_medium slds-size_1-of-1 slds-m-around_small slds-metadata-container">  
+                </div>
+                <div class="slds-p-top_small slds-size_1-of-1 slds-text-align--right slds-border_bottom">              
+                    <button class="slds-button slds-button_brand" disabled="">Commit</button>                  
+                </div> 
+            </div>
+        </div>
+        <div class="slds-modal__content slds-p-around--medium slds-form slds-form_compound">
+            <fieldset class="slds-form-element">
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        
+                        <div class="slds-form-element slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <label class="slds-form-element__label" for="Label">Label</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <select class="slds-select" id="Label" onchange="{!c.showModal}">
+                                        <option>None</option>
+                                        <option>Custom Label</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aura:if isTrue="{!v.isLabel}">
+                            <div class="slds-form-element slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <label class="slds-form-element__label" for="Label Name" >Label Name</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <select class="slds-select" id="Label Name">
+                                            <option>None</option>
+                                            <option>Custom Label</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="slds-button slds-button_brand slds-button-add-acckey" onclick="{!c.gotoURL}">+</button>
+                        </aura:if>
+                    </div>
+                </div>     
+            </fieldset>
+        </div>
+    </div>
+</aura:component>

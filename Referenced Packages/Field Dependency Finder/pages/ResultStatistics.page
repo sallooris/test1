@@ -1,0 +1,37 @@
+<apex:page controller="FDF.FieldDependency_ctrl" showHeader="false">
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" /> 
+    <style>
+        #vfext4-ext-gen1026 {
+            width:100% !important;
+            /*height:420px !important;*/
+            padding: 5px !important;
+        }
+        #topPane{
+            padding: 0px !important
+        }
+        .theTabPanel {
+             margin-top: 0px !important;
+         }
+         #tooltip-1010_header {
+             /*width:210px !important;*/
+         }
+         .vf-tip{
+             /*width:100% !important;
+             white-space:nowrap !important;*/
+         }
+    </style>  
+    <script>
+           /* myChart.on('beforeconfig', function(config) {
+            config.axes[0].margin=-10; 
+        });*/
+    </script>
+    <apex:chart height="200" width="100%" data="{!pieData}" >
+        <center>
+            <!--apex:outputPanel>No records found.</apex:outputPanel-->
+            <apex:pieSeries dataField="data" labelField="name"  tips="true">
+                <apex:chartLabel display="none" orientation="vertical"/>
+            </apex:pieSeries>
+            <apex:legend position="right" />
+        </center>
+    </apex:chart>
+</apex:page>

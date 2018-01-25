@@ -1,0 +1,109 @@
+<apex:page controller="FDF.FieldDependency_ctrl" showHeader="false" sidebar="false" ContentType="text/html" readonly="true"  contenttype="application/vnd.ms-excel#AQ-{!selectedObject}-{!TODAY()}.xls">
+     <!--Version Depricataed-->
+     <!--style> 
+         .requiredLoaderBG{
+         background-color: rgb(71,71,71);
+         opacity:0.7;
+         filter:alpha(opacity=70);
+         background-image:url({!URLFOR($Resource.ajaxLoadGif)});
+         background-position: center center;
+         background-repeat: no-repeat;
+         height: 100%;
+         left: 0;
+         position: fixed;
+         text-align: center;
+         top: 0;
+         width: 100%;
+         z-index: 100;
+     } 
+     .hearderClass{
+         border: 1px solid #ccc;
+        background: #f2f3f3;
+        /* border-width: 0 0 1px 1px; */
+        /* border-color: #e0e3e5; */
+        color: #000;
+        font-size: .9em;
+        font-weight: bold;
+        padding: 5px 2px 4px 5px;
+     }
+</style>
+     <apex:form >
+          <apex:outputPanel id="pbtFields">
+            <apex:pageBlock >
+                <apex:outputPanel rendered="{!IF(allFieldDependecy.size == 0,true,false)}">
+                    <apex:outputLabel value="No Custom Field to display" />
+                </apex:outputPanel>
+                <apex:repeat value="{!allFieldDependecy}" var="f">
+                    
+    
+                    <apex:pageBlockSection title="{!f.fiedlName} - {!f.fiedlApiName}" columns="1" collapsible="true">     
+                        <apex:outputPanel rendered="{!isApex}">
+                            <div class="hearderClass">Apex Classes</div>     
+                            <apex:pageblocktable value="{!f.lstApex}" var="cp" >
+                                <apex:column headervalue="Name"><a href="/{!cp.Id}"><apex:outputField value="{!cp.Name}"/></a></apex:column>
+                                <apex:column headervalue="Namespace Prefix"><apex:outputField value="{!cp.NamespacePrefix}"/></apex:column>           
+                                <apex:column headervalue="Api Version"><apex:outputField value="{!cp.ApiVersion}"/></apex:column>
+                                <apex:column headervalue="Status"><apex:outputField value="{!cp.Status}"/></apex:column>
+                                <apex:column headervalue="Size Without Comments"><apex:outputField value="{!cp.LengthWithoutComments}"/></apex:column>
+                                <apex:column headervalue="Created By"><apex:outputField value="{!cp.createdById}"/>&nbsp;
+                                <apex:outputField value="{!cp.createdDate}"/></apex:column>
+                                <apex:column headervalue="Last Modified By"><apex:outputField value="{!cp.LastModifiedById}"/> &nbsp;
+                                <apex:outputField value="{!cp.LastModifiedDate}"/></apex:column>  
+                                <apex:facet name="footer"><apex:outputPanel rendered="{!IF(f.lstApex.size == 0,true,false)}"><apex:outputLabel value="No records to display" /></apex:outputPanel></apex:facet>          
+                           </apex:pageblocktable>
+                           <br/>
+                       </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isTrigger}">                
+                            <div class="hearderClass">Apex Triggers</div>
+                            <apex:pageblocktable value="{!f.lstTrigger}" var="tr" >
+                                <apex:column headervalue="Name"><a href="/{!tr.Id}">{!tr.Name}</a></apex:column>            
+                                <apex:column headervalue="Namespace Prefix"><apex:outputField value="{!tr.NamespacePrefix}"/></apex:column>      
+                                <apex:column headervalue="Sobject Type"><apex:outputField value="{!tr.TableEnumOrId}"/></apex:column>    
+                                <apex:column headervalue="Api Version"><apex:outputField value="{!tr.ApiVersion}"/></apex:column>
+                                <apex:column headervalue="Status"><apex:outputField value="{!tr.Status}"/></apex:column>
+                                <apex:column headervalue="Size Without Comments"><apex:outputField value="{!tr.LengthWithoutComments}"/></apex:column>
+                                <apex:column headervalue="Created By"><apex:outputField value="{!tr.createdById}"/>&nbsp;
+                                <apex:outputField value="{!tr.createdDate}"/></apex:column>
+                                <apex:column headervalue="Last Modified By"><apex:outputField value="{!tr.LastModifiedById}"/> &nbsp;
+                                <apex:outputField value="{!tr.LastModifiedDate}"/></apex:column> 
+                                <apex:facet name="footer"><apex:outputPanel rendered="{!IF(f.lstTrigger.size == 0,true,false)}"><apex:outputLabel value="No records to display" /></apex:outputPanel></apex:facet>          
+                            </apex:pageblocktable>
+                            <br/>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isPage}">
+                            <div class="hearderClass">Visiualforce Pages</div>
+                            <apex:pageblocktable value="{!f.lstPage}" var="pg">
+                                <apex:column headervalue="Label"><a href="/{!pg.Id}">{!pg.MasterLabel}</a></apex:column>
+                                <apex:column headervalue="Name"><a href="/{!pg.Id}">{!pg.Name}</a></apex:column>            
+                                <apex:column headervalue="Namespace Prefix"><apex:outputField value="{!pg.NamespacePrefix}"/></apex:column> 
+                                <apex:column headervalue="Description"><apex:outputField value="{!pg.Description}"/></apex:column>
+                                <apex:column headervalue="Created By"><apex:outputField value="{!pg.createdById}"/>&nbsp;
+                                <apex:outputField value="{!pg.createdDate}"/></apex:column>
+                                <apex:column headervalue="Last Modified By"><apex:outputField value="{!pg.LastModifiedById}"/> &nbsp;
+                                <apex:outputField value="{!pg.LastModifiedDate}"/></apex:column>
+                                <apex:facet name="footer"><apex:outputPanel rendered="{!IF(f.lstPage.size == 0,true,false)}"><apex:outputLabel value="No records to display" /></apex:outputPanel></apex:facet>          
+                            </apex:pageblocktable>                            
+                            <br/>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isComponent}">
+                            <div class="hearderClass">Components</div>
+                            <apex:pageblocktable value="{!f.lstComponent}" var="com">
+                                <apex:column headervalue="Label"><a href="/{!com.Id}">{!com.MasterLabel}</a></apex:column>
+                                <apex:column headervalue="Name"><a href="/{!com.Id}">{!com.Name}</a></apex:column>            
+                                <apex:column headervalue="Namespace Prefix"><apex:outputField value="{!com.NamespacePrefix}"/></apex:column> 
+                                <apex:column headervalue="Description"><apex:outputField value="{!com.Description}"/></apex:column>
+                                <apex:column headervalue="Created By"><apex:outputField value="{!com.createdById}"/>&nbsp;
+                                <apex:outputField value="{!com.createdDate}"/></apex:column>
+                                <apex:column headervalue="Last Modified By"><apex:outputField value="{!com.LastModifiedById}"/> &nbsp;
+                                <apex:outputField value="{!com.LastModifiedDate}"/></apex:column> 
+                                <apex:facet name="footer"><apex:outputPanel rendered="{!IF(f.lstComponent.size == 0,true,false)}"><apex:outputLabel value="No records to display" /></apex:outputPanel></apex:facet>                    
+                            </apex:pageblocktable>
+                        </apex:outputPanel>
+    
+                    </apex:pageBlockSection>
+                </apex:repeat>
+            </apex:pageBlock>        
+        </apex:outputPanel>
+        <apex:actionstatus startStyleClass="requiredLoaderBG" id="ajaxStatus" />
+    </apex:form-->
+</apex:page>

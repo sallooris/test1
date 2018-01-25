@@ -1,0 +1,2 @@
+<apex:page standardController="A__c" extensions="SendEmail" action="{!getSendMail}">
+</apex:page>

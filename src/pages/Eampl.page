@@ -1,0 +1,280 @@
+<apex:page Controller="Example2" sidebar="false" showHeader="false"  standardStylesheets="true">
+    
+  <style>
+      
+
+    body {
+    background-color: #e6f5ff;
+    } 
+    .tbl1 {
+    background:#de0000;
+    }
+    .fix{
+    position:fixed;
+    bottom:0px;
+    right:0%;
+    }
+    .textheader {
+    float: left;
+    width: 100%;
+    text-align: right;
+    }
+    .textarea {
+    width: 100%;
+    height: 35px;
+    }
+    .header img {
+    float: top;
+    width: 180px;
+    }
+    td{
+    font-weight: bold;
+    }
+    .form-style {
+    width: 650px;
+    padding: 30px;
+    margin: 40px auto;
+    background: #FFF;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    }
+    .button {
+    background-color: #66c2ff; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    .button4 {border-radius: 12px;}
+    h5 {
+    font-size: 25px;
+    /*padding: 0px 0px 10px 40px;
+    margin: -10px -15px 30px -10px;;*/
+    color: #888;
+    }
+    .slds-hide{
+    display:none;
+    }
+    .slds-button.slds-button_neutral, .slds-button--neutral {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #d8dde6;
+    background-color: white;
+    }
+    .slds-button.slds-button_brand, .slds-button--brand {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #0070d2;
+    border: 1px solid #0070d2;
+    color: white;
+    }
+    .slds-button {
+    font-family: "Salesforce Sans", Arial, sans-serif;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    background: transparent;
+    background-clip: border-box;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1.875rem;
+    text-decoration: none;
+    color: #0070d2;
+    -webkit-appearance: none;
+    white-space: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color 0.05s linear, background-color 0.05s linear;
+
+  </style>
+  <apex:form id="frm" styleClass="form-style slds-scope" style=" width: 660px;position:absolute;left:50%;margin-left:-350px;height:auto;" >
+   
+      <table style="width:660px;" >
+      <tr>
+        <td><img align="top" src="{!$Resource.AutorabitLogo}" width="200px" /></td> 
+        <td valign="middle">
+          <h5>Create a Ticket with Support</h5>
+        </td>
+      </tr>
+      <!--    <apex:commandButton value="Create Case" action="{!InvokeShow}"  reRender="panel" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;"/>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
+      <!--  <a class="slds-button slds-button_neutral" href="http://autorabit.force.com/OpenCase">Create Case</a> -->
+      <!--     <apex:commandButton value="Search a ticket" action="http://autorabit.force.com/supportstatus" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;"/>
+        </div>
+        
+        <apex:outputPanel id="panel" > 
+        <apex:pageBlock rendered="{!show}"  >
+        
+        <tr>
+        <td><apex:inputField value="{!case.CaseType__c}" label="abc" /></td>
+        </tr>
+        </apex:pageBlock>
+        </apex:outputPanel>
+        </table> -->
+      <!--  <apex:commandButton value="Create Case" action="{!InvokeShow}"  reRender="panel" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;"/>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -->
+            
+    </table>
+   
+    <table style="width:660px;" >
+          
+      <div align="center" draggable="false" >
+        <apex:outputPanel id="selectText" >
+              
+          <apex:pageBlock rendered="{!show}" id="selectPub1">
+            <apex:commandbutton id="change" value="Create Case" action="{!InvokeShow}" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;" rerender="selectText,selectValues"/>
+            <apex:commandbutton id="change1" value="Search Case" action="{!InvokeShow}" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;" rerender="selectText,selectValues1"/>
+               <apex:pageMessages id="showmsg" ></apex:pageMessages>
+          </apex:pageBlock>
+          
+        </apex:outputPanel>
+          
+           <apex:actionFunction action="{!Save1}" name="methodOneInJavascript"  />
+          <apex:actionFunction action="{!Invokehide}" name="methodOneInJavascript1"  />
+        
+        <apex:outputPanel id="selectValues" > 
+            
+           
+          <apex:pageBlock rendered="{!hide}">
+              
+              <apex:commandButton value="Submit Case" onclick="methodOneInJavascript('First');"    reRender="showmsg"  style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;"/>
+              <apex:commandbutton id="change1" value="Search Case" onclick="methodOneInJavascript1('First');" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;" rerender="selectText,selectValues1"/>
+            <tr>
+              <td style="align:center" colspan="2">
+              
+              </td>
+            </tr>
+            <tr >
+              <td  colspan="2">
+                <table cellspacing="0px" cellpadding="5px" style=" margin: 20px 0px 0px 110px; ">
+                  <tr>
+                    <td width="250px">Full Name:</td>
+                    <td>AutoRABIT UserName:</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <apex:inputText value="{!c.SuppliedName}" disabled="False" />
+                    </td>
+                    <td>
+                      <apex:inputText value="{!c.SuppliedEmail}" disabled="False"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Login Instance:</td>
+                    <td>
+                      <apex:outputLabel value="Priority:" for="acctss"></apex:outputLabel>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <apex:inputText value="{!c.Login_Url__c}" disabled="False"/>
+                    </td>
+                    <td>
+                      <apex:selectList id="acctss" value="{!userPriority}" size="1" title="Contact">
+                        <apex:selectOptions value="{!Priority1}"></apex:selectOptions>
+                      </apex:selectList>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <apex:outputLabel value="Feature Type:" for="accts"></apex:outputLabel>
+                    </td>
+                    <td>Subject:</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <apex:selectList id="accts" value="{!featureTypeVal}" size="1" title="Contact">
+                        <apex:selectOptions value="{!Category}"></apex:selectOptions>
+                      </apex:selectList>
+                    </td>
+                    <td valign="top">
+                      <apex:inputText value="{!c.Subject}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Comments:</td>
+                    <td>Upload Attachment (if Any):</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <apex:inputTextArea styleclass="textarea" style="width:200px;" rows="3" value="{!c.description}"/>
+                    </td>
+                    <td colspan="2">
+                      <apex:inputfile value="{!attach.body}" filename="{!attach.name}">
+                      </apex:inputfile>
+                    </td>
+                  </tr>
+                </table>
+                <br/>
+                <div align="center" draggable="false" >
+                  <table>
+                    <tr>
+                      <td colspan="2" height="40px" valign="bottom" align="center">
+                         
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </apex:pageBlock>
+          <br/>
+        </apex:outputPanel>
+            
+        <apex:outputPanel id="selectValues1">
+           <apex:actionFunction action="{!Invokeshow}" name="methodOneInJavascript2"  />
+          <apex:pageBlock rendered="{!hide}" id="selectPub3"  >
+              <apex:commandbutton id="change" value="Create Case" onclick="methodOneInJavascript2('First');" style="background-color:#4d88ff;background-image:none;color:#FFF;padding:12px 28px;border-radius:8px;" rerender="selectValues"/>
+            <tr>
+                  
+              <td style="align:center" colspan="2">
+                <apex:pageMessages id="showmsg"></apex:pageMessages>
+              </td>
+            </tr>
+            <tr >
+               
+              <td  colspan="2">
+                <table cellspacing="0px" cellpadding="5px" style=" margin: 20px 0px 0px 110px; ">
+                  <tr>
+                    <td>
+                      <apex:outputLabel >Email:</apex:outputLabel>
+                    </td>
+                    <td>
+                      <apex:inputText value="{!emailValue}"/>
+                    </td>
+                    <td>
+                      <apex:commandButton value="Search" action="{!searchCases}"/>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </apex:pageBlock>
+          
+         <!-- <apex:pageBlock rendered="{!!hideTable}">
+            <apex:outputPanel >
+              <apex:outputLabel value="No records found" />
+            </apex:outputPanel>
+          </apex:pageBlock> -->
+        </apex:outputPanel>
+      </div>
+      <tr>
+        <td align="right" colspan="2"><img src="{!$Resource.NoDeploymentLogo}" width="80" /></td>
+      </tr>
+    </table>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,19 @@
+.THIS.slds-container_medium {
+    margin:auto;
+}
+.THIS .slds-metadata-container{
+    /*min-height:250px;*/
+    border:1px solid rgb(216, 221, 230)
+}
+.THIS .icon-wrapper{
+    position:absolute;
+    right:0
+}
+
+.THIS .icon-wrapper .slds-section__title-action-icon {
+    transform: rotate(-180deg);
+}
+
+.THIS .slds-section.slds-is-open .icon-wrapper .slds-section__title-action-icon{
+    transform: rotate(0deg);
+}

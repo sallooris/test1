@@ -1,0 +1,17 @@
+.THIS .devhub-container{
+    padding-top:20px;
+    margin:auto 25px;
+}
+.THIS.oneAnchorHeader {
+    margin: 0;
+    padding: 1rem;
+    border-bottom: 1px solid rgb(216, 221, 230);
+    background: rgb(244, 246, 249);
+    height: 80px;
+}
+.THIS .slds-button_brand {
+    text-align:right;
+}
+.THIS .slds-button_neutral{
+    margin-top:10px;
+}

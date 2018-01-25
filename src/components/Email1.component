@@ -1,0 +1,9 @@
+<apex:component >
+    <apex:attribute name="Object__c" type="Object__c" 
+    description="The Object to edit" required="true" />
+    
+    <apex:inputField label="Mobile" value="{!Object__c.Mobile__c}"/><br/>
+    <apex:inputField label="Email" value="{!Object__c.Email__c}"/>
+
+    
+</apex:component>

@@ -1,0 +1,17 @@
+<apex:page controller="Controller">
+    <apex:form >
+        <apex:actionFunction action="{!createFruitList}" name="generateFruits" reRender="selFruits" />
+        <br/>
+        Select the Alphabet:
+        <apex:selectList id="selAlphabets" value="{!SelectedAlphabet}" size="1" onchange="generateFruits()">
+            <apex:selectOptions value="{!Alphabets}">
+            </apex:selectOptions>
+        </apex:selectList>
+        <br/> 
+        Select the Fruit:
+        <apex:selectList id="selFruits" size="1">
+            <apex:selectOptions value="{!Fruits}">
+            </apex:selectOptions>
+        </apex:selectList>           
+    </apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page standardcontroller="Object__c" extensions="Email1">
+    <apex:form >
+        <apex:pageBlock title="Email">
+            
+            <c:Email1 Object__c="{!Object__c}" />
+           
+               <apex:commandButton action="{!getSendmail}" value="Submit" />
+           
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<aura:component >
+    <aura:attribute name="message" type="string"
+                    default="['You like Nice','How is whether','How are You']" />
+    <h1> Hello Play Ground </h1>
+    <p>Silly fun with attributes and expressions.</p>
+
+    <h2>Items</h2>
+    <p> <c:helloMessage message="{v.mesaage[0]}" /></p>
+    <p><c:helloMessage message="{v.message[1]}" /></p>
+   <p> <c:helloMessage message="{!v.message[2]}"/></p>
+</aura:component>

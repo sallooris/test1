@@ -1,0 +1,16 @@
+.THIS .slds-container_small {
+    background-color: #fff;
+    position: relative;
+}
+.THIS  .slds-select_container.slds-select_container-acckey{
+    width: 92%;
+    float: left;
+}
+.THIS .slds-button-add-acckey{
+    margin-left: 5px;
+    font-size: 18px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 1.5rem;
+    margin-top: 2px; 
+}

@@ -1,0 +1,56 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    <ltng:require scripts="/resource/jquery" afterScriptsLoaded="{!c.checkToggle}"/>
+    <aura:attribute name="isMetadataMembersVisible" type="boolean" default="false"/> 
+    <aura:attribute name="isMetadataReportVisible" type="boolean" default="false"/>
+    <aura:attribute name="metadataList" type="Object[]" default="[]"/>
+    <aura:attribute name="agent" type="String" default="git"/>
+    <aura:attribute name="deployMetaDataMap" type="Map"/>
+    <aura:attribute name="deploymentOrgInfo" type="Map"/>
+   
+    <aura:attribute name="deploymentReport" type="Map" default="{'report':{},'success':[],'failure':[]}"/>
+    <aura:attribute name="metaDataMap" type="Map" default="{'repoid':'',
+                                                           'labelName':'',
+                                                           'destOrgId':'',
+                                                           'dpmsource':'',
+                                                           'type':'',
+                                                           'branch':'' 
+                                                           }"/>
+    <div class="slds-container_large">
+        <h1 class="slds-page-header__title slds-truncate slds-align-middle slds-text-align_center slds-m-bottom_small" title="Metadata Members">Metadata Members </h1>
+        <aura:iteration items="{!v.metadataList}" var="data" indexVar="i">
+            <div class="slds-box slds-box_x-small slds-theme_shade slds-m-bottom_small"> 
+                <span>
+                    <!--<ui:inputCheckbox value="{!data.isSel}" name="{!data.name}" class="{!'checkbox-'+i}" />-->
+                    <input type="checkbox" name="{!data.name}" id="{!'checkbox-'+i}" class="metadata"/>
+                    <label class="slds-checkbox__label" for="{!'checkbox-'+i}">
+                        &nbsp;<span class="slds-form-element__label">{!data.name}</span>
+                    </label>
+                </span>
+                <a href="javascript:void(0);" class="slds-float_right" data-label="{!data.name}" data-obj="{!data}" onclick="{!c.getDataMemebrs}"> <aura:if isTrue="{!not(empty(data.members))}">Hide<aura:set attribute="else">Show</aura:set> </aura:if> Members</a>
+            </div>
+            <aura:if isTrue="{!not(empty(data.members))}">
+                <div class="metadata-sub-members">
+                    <ul class="metadata-list">
+                        <aura:iteration items="{!data.members}" var="member" indexVar="j">
+                            <li><div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <span class="">
+                                        <!--<ui:inputCheckbox value="{!or(data.isSel,member.isSel)}"  data-parent-name="{!data.name}" class="{!'checkbox-'+i+'-'+j}" />-->
+                                        <input type="checkbox" class="sub-metadata" data-parentid="{!'checkbox-'+i}" data-parent-name="{!data.name}" name="{!member.name}" id="{!'checkbox-'+i+'-'+j}"/>
+                                        <label class="slds-checkbox__label" for="{!'checkbox-'+i+'-'+j}">
+                                             &nbsp;<span class="slds-form-element__label">{!member.name}</span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                            </li>
+                        </aura:iteration>
+                    </ul> 
+                </div>
+            </aura:if>
+        </aura:iteration>
+        <div class="slds-p-vertical_small slds-text-align_center">
+            <button class="slds-button slds-button_brand" onclick="{!c.exeDeploy}">Deploy</button>
+        </div>
+    </div>
+</aura:component>

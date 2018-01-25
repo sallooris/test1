@@ -1,0 +1,93 @@
+<aura:component controller="DXLoginActivity" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="hubid" type="String" />
+    <aura:attribute name="hubusername" type="String" />
+    <aura:attribute name="hubalias" type="String" />
+    <aura:attribute name="ScrOrgList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryDetailsList" type="Object[]" default="[]"/>
+    <aura:attribute name="BranchList" type="Object[]" default="[]"/>
+    <aura:attribute name="UserList" type="Object[]" default="[]"/>
+    <aura:attribute name="fetchChangesMap" type="Map" default="{
+                                                               'Userslist':'',
+                                                               'repoid':'',
+                                                               'branch':'',
+                                                               'sforgid':''
+                                                               }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div aura:id="main">
+        <div class="slds-box">
+            <div class="slds-grid slds-wrap slds-grid_pull-padded">
+                <!-- first row start -->  
+                <div class="slds-p-horizontal_small slds-size_1-of-1 slds-small-size--1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-01">Salesforce Org:</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="srcOrg" onchange="{!c.selectDeloyment}">
+                                    <option>Select Salesforce Org</option>
+                                    <aura:iteration items="{!v.ScrOrgList}" var="org">
+                                        <option data-rec-id="{!org.id}" value="{!org.name}">{!org.name}</option>
+                                    </aura:iteration> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+                <div class="slds-p-horizontal_small slds-size_1-of-1 slds-small-size--1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="user">Author:</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="user" onchange="{!c.selectDeloyment}">
+                                    <option>All</option>
+                                    <aura:iteration items="{!v.UserList}" var="val">
+                                        <option data-name="{!val.name}" value="{!val.name}">{!val.name}</option>
+                                    </aura:iteration> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+                <div class="slds-p-top_large slds-size_1-of-1 slds-small-size--1-of-3">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size_2-of-4"><button class="slds-button slds-button_brand" onclick="{!c.fetchChanges}">Fetch Changes</button></div>     
+                    </div>         
+                </div>
+                <div class="slds-p-horizontal_small slds-size_1-of-1 slds-small-size--1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="Repository">Repository:</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="Repository" onchange="{!c.selectDeloyment}">
+                                    <option>Select</option>
+                                    <aura:iteration items="{!v.repositoryDetailsList}" var="rep">
+                                        <option data-rec-id="{!rep.id}" value="{!rep.name}">{!rep.name}</option>
+                                    </aura:iteration>
+                                </select>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+                <div class="slds-p-horizontal_small slds-size_1-of-1 slds-small-size--1-of-3">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="Branch">Branch</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="Branch" onchange="{!c.selectDeloyment}">
+                                    <option>Select</option>
+                                    <aura:iteration items="{!v.BranchList}" var="branch">
+                                        <option data-name="{!branch.name}" value="{!branch.name}">{!branch.name}</option>
+                                    </aura:iteration> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>      
+                </div>   
+            </div>      
+        </div>
+    </div>
+    <div id="metadata">
+    </div>  
+    <div class="slds-text-align_center slds-p-vertical_medium">
+        <button class="slds-button slds-button_brand slds-btn-commit slds-hide" onclick="{!c.commitChanges}">Commit</button>
+    </div>
+</aura:component>

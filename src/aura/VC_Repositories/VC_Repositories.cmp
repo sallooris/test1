@@ -1,0 +1,81 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="DXLoginActivity">
+    <ltng:require scripts="/resource/jquery" afterScriptsLoaded="{!c.doInit}"/>
+    <aura:attribute name="accesskeyList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryDetailsList" type="Object[]" default="[]"/>
+    <aura:attribute name="repositoryList" type="String[]" default="[]"/>
+    <aura:attribute name="isModalVisible" type="boolean" default="false"/>
+    <aura:attribute name="isModal" type="boolean" default="false"/>
+    <aura:handler name="cmpEvent" event="c:flagHandler" action="{!c.handleComponentEvent}"/>
+    <div aura:id="main">                       
+        <div class="slds-text-align_right slds-m-top_large ">
+            <div class="slds-button-group" role="group" data-aljs="icon-group">
+                <button id="icon-2" class="slds-button slds-button--icon-border slds-is-selected" onclick="{!c.showRepoList}">
+                    Repositories List
+                </button>
+                <button id="icon-3" class="slds-button slds-button--icon-border slds-not-selected" onclick="{!c.showModal}">
+                    Register Repository
+                </button>
+            </div>
+        </div>
+        <aura:if isTrue="{!not(v.isModalVisible)}">
+            <div class="table-container">
+                <div class="slds-form slds-form_compound">
+                    <fieldset class="slds-form-element">
+                        <div class="slds-text-align_right slds-m-top_large ">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Repository Name" >Repository Name</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Type">Type</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="URL">URL</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Access Key">Access Key</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="UserName">UserName</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.repositoryDetailsList}" var="repo">
+                                        <tr>
+                                            <td scope="col">
+                                                <div class="slds-truncate" title="{!repo.name}" >{!repo.name}</div>
+                                            </td>
+                                            <td scope="col">
+                                                <div class="slds-truncate" title="{!repo.scmtype}">{!repo.scmtype}</div>
+                                            </td>
+                                            <td scope="col">
+                                                <div class="slds-truncate" title="{!repo.remoteurl}">{!repo.remoteurl}</div>
+                                            </td>
+                                            <td scope="col">
+                                                <div class="slds-truncate" title="{!repo.accesskey}">{!repo.accesskey}</div>
+                                            </td>
+                                            <td scope="col">
+                                                <div class="slds-truncate" title="{!repo.registeredby}">{!repo.registeredby}</div>
+                                            </td>
+                                        </tr>   
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>  
+                    </fieldset>
+                </div>
+            </div>  
+        </aura:if>    
+        <aura:if isTrue="{!v.isModalVisible}">
+            <div class="slds-clearfix"></div>
+            <c:BranchRegistration flag="{!v.isModalVisible}" accflag="{!v.isModal}" repositoryList="{!v.repositoryList}" accesskeyList="{!v.accesskeyList}"/>   
+        </aura:if> 
+        <aura:if isTrue="{!v.isModal}">
+            <c:VCAccessType flag="{!v.isModal}" accesskeyList="{!v.accesskeyList}" />   
+        </aura:if>         
+    </div>
+    
+</aura:component>

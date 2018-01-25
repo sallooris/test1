@@ -1,0 +1,31 @@
+<apex:page controller="sample">
+    <!-- Calling Controller Method from Visualforce page -->
+    
+    <!-- Javascript -->
+    <script type="text/javascript">
+        function jsfind()
+        {
+            callfind();
+        }
+    </script>
+    
+    <apex:pagemessages />
+    
+    <apex:form >
+    
+    <apex:actionFunction name="callfind" action="{!searchAndfind}" reRender="a" />
+    
+    <apex:pageBlock >
+        <apex:pageblockSection >
+            <apex:outputLabel >Query:</apex:outputLabel>
+            <apex:inputText value="{!qry}"/>        
+        </apex:pageblockSection>
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Query" onclick="jsfind()"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,74 @@
+<aura:component controller="DXLoginActivity" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require scripts="/resource/jquery"/>
+    <aura:attribute name="isModalVisible" type="boolean" default="false"/>
+     <aura:attribute name="flag" type="boolean" default="false"/>
+    <aura:attribute name="hubid" type="String"/>
+    <aura:attribute name="hubusername" type="String" />
+    <aura:attribute name="hubalias" type="String" />
+    <aura:attribute name="ScrOrgList" type="Object[]" default="[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div aura:id="main">    
+        <div class="scratch-org-container">
+            <div class="slds-text-align_right slds-m-bottom_large ">
+                <button class="slds-button slds-button_brand" onclick="{!c.showModal}">Create Scratch Org</button>
+            </div>
+            <div class="table-container">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer" id="scratch-org-list-table">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Alias Name">Alias Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="User Name">User Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Created Date">Created Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Expiration Date">Expiration Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="DevHub Name">Dev Hub Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Instance Url">Url</div>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.ScrOrgList}" var="so">
+                            <tr class="slds-text-title_caps">
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.name}">{!so.name}</div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.username}">{!so.username}</div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.date}">{!so.date}</div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.expirydate}">{!so.expirydate}</div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.hubuserid}">{!so.hubuserid}</div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="{!so.orgurl}"><a href="{!so.orgurl}" target="__blank"><c:svg svgPath="/resource/slds/assets/icons/utility-sprite/svg/symbols.svg#new_window" class="slds-icon slds-icon-text-default slds-icon--small" containerClass="slds-icon_container null slds-icon__svg--default"/></a></div>
+                                </td>
+                                <td scope="col">
+                                    <div class="slds-truncate" title="delete"><a href="javascript:void(0)" onclick="{!c.unRegister}" data-soid="{!so.id}" data-soname="{!so.name}" data-sousername="{!so.username}" data-hubid="{!so.hubuserid}"><c:svg svgPath="/resource/slds/assets/icons/utility-sprite/svg/symbols.svg#delete" class="slds-icon slds-icon-text-default" containerClass="slds-icon_container null slds-icon__svg--default"/></a></div>
+                                </td>
+                            </tr>
+                        </aura:iteration>   
+                    </tbody>
+                </table> 
+            </div>
+        </div>  
+        <aura:if isTrue="{!v.isModalVisible}">
+            <c:Create_Scractch_Org flag="{!v.isModalVisible}" hubid="{!v.hubid}" hubusername="{!v.hubusername}" hubalias="{!v.hubalias}"/>   
+        </aura:if>   
+    </div>        
+</aura:component>

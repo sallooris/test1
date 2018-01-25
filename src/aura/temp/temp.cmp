@@ -1,0 +1,67 @@
+<aura:component controller="DXLoginActivity" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require scripts="/resource/jquery"/>
+    <aura:attribute name="DevHubList" type="Object[]" default="[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <style>
+        .forceEntityIcon:nth-child(1) {
+        width: 60% !important;
+        height: 2rem !important;
+        background-color:transparent !important;
+        }
+        h2.truncate:nth-child(1){
+        text-align:right;
+        display:none;
+        }
+        header.oneAnchorHeader:nth-child(1) {
+        height: 84px;
+        }
+        one-app-nav-bar-item-root .slds-context-bar__label-action .slds-truncate{
+        font-weight: bold;
+        font-size: 14px;
+        font-style: italic;
+        font-family: sans-serif;
+        display: inline-block;
+        width: 121px;
+        text-align: center;
+        color: rgb(0, 157, 212);
+        }
+        one-app-nav-bar-item-root a.slds-context-bar__label-action:before {
+        background-color: #0070D2 !important;
+        margin-bottom: -3px;
+        }
+        
+        one-app-nav-bar-item-root a.slds-context-bar__label-action:before, one-app-nav-bar-item-root a.slds-context-bar__label-action:after {
+        content: '' !important;
+        height: 3px !important;
+        display: block !important;
+        background: #0070D2 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -1px !important;
+        right: -1px !important;
+        }
+        one-app-nav-bar-item-root.slds-context-bar__item {
+        outline: 0;
+        border-radius: 0;
+        background-color: rgb(247, 249, 251);
+        border-bottom: 3px solid rgb(0, 161, 223);
+        border-bottom-color: rgb(247, 249, 251);
+        margin-bottom: -3px;
+        text-decoration: none;
+        cursor: pointer;
+        }
+    </style>
+    <div id="Accspinner">
+        <div class="demo-only demo--inverse" style="height: 6rem;">
+            <div class="slds-spinner_container">
+                <div role="status" class="slds-spinner slds-spinner_medium">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                    <!--<img src="/resource/loading"/>-->
+                </div>
+                
+            </div>
+        </div>   
+    </div>
+</aura:component>
